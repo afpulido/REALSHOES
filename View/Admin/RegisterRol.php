@@ -24,16 +24,16 @@
         <aside class="submenu">
             <ul class="nav flex-column">
                 <li class="nav-item">
-                    <a class="nav-link " aria-current="page" href="#">Active</a>
+                    <a class="nav-link " aria-current="page" href="#">Registrar</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
+                    <a class="nav-link" href="#">Actualizar</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
+                    <a class="nav-link" href="#">Eliminar</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                    <a class="nav-link " href="#" tabindex="-1" aria-disabled="true">Atrás</a>
                 </li>
             </ul>
         </aside>
