@@ -9,7 +9,7 @@
 
     /** titulo de la tabla*/
         echo "
-        <table class='table table-responsive'>
+        <table class='table table-responsive table-stripted'>
             <thead class='center'>
                 <tr>
                     <th>Identificacion</th>
@@ -84,7 +84,7 @@
                     --->
 
                     <!-- BOTON FUNCIONAL ELIMINAR CON CONFIRMACION -->
-                    <button type='button' class='btn btn-danger' data-bs-toggle='modal' data-bs-target='#exampleModal'>
+                    <button type='button' class='btn btn-danger' data-bs-toggle='modal' data-bs-target='#exampleModal' value='".$idp."'>
                         Eliminar
                     </button>
                     
@@ -102,7 +102,7 @@
                                     Si decide eliminar tenga en cuenta que no es posible recuperar despues este registro</p>
                             </div>
                             <div class='modal-footer'>
-                                
+                                ".$idp."
                                 <button type='button' class='btn btn-success' data-bs-dismiss='modal'>NO Eliminar</button>
                                 <button type='button' class='btn btn-danger'><a  class='text-light' href='../../Controller/UserDelete.php?deleteid=".$idp."'>Confirmar Eliminar</a></button>
                             </div>

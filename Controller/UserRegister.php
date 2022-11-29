@@ -33,7 +33,6 @@
                                 idtipodocp =$tipodoc,
                                 idtipopersona=$tipoUser,
                                 idrolp =$rol, 
-                                fecha_creacion = now(),
                                 ultima_modificacion= now(),
                                 fecha_eliminacion=null
                             WHERE      email = '$email'";

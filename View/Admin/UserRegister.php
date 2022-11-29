@@ -102,7 +102,7 @@
                     </form>
             </div>
             <!-- Formulario--->
-
+            <br>
             <!-- Tabla de registros--->
             <div class="row">
                 <div class="col">

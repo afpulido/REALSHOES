@@ -30,7 +30,7 @@ include "../../model/conexion.php";
     <!--Fin menu  -->
 
     <!-- Inicio Contenido-->
-    <div class="main">
+    <div class="main"> 
         <main>
         <div class="col-3"></div>
         <div class="col-6">

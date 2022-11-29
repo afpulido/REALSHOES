@@ -76,7 +76,7 @@
 
             }else{
                 echo "
-            <script>alert('No pudo iniciar sesion: USUARIO DESACTIVADO: \n Contacte al administrador: soporte@realshoes.com');
+            <script>alert('No pudo iniciar sesion: USUARIO DESACTIVADO: Contacte al administrador: soporte@realshoes.com');
                         window.location = '../View/Cliente/Login.php';    
                     </script>
             ";
