@@ -1,7 +1,7 @@
 <?php
 include "../Model/conexion.php";
 
-if (isset($_GET['activeid']))
+if (isset($_GET['activeid'])){
 
     $id=$_GET['activeid'];
 
@@ -40,12 +40,13 @@ if (isset($_GET['activeid']))
 
         }
 
-
-        
-
         $conectar->close();
     }else{
         echo "<script>alert('Por favor actualice sus datos.')
                 window.location.href='../View/Admin/userRegister.php'</script>";
     }
+
+}
+
+    
 ?>

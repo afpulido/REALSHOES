@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--  -->
     <!-- CSS only -->
-    <?php include "includes/cdnstop.php"?>  
+    <?php include "includes/cdnstop copy.php"?>  
     <title>Home</title>
 </head>
 <body>
