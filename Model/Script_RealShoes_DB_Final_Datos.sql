@@ -291,6 +291,7 @@ values(1011,'zapatilla', 'Nike', 'Pasada', 'Femenino',now(),now(),null);
 insert into Producto (idproducto, Tipo, Marca, Coleccion_Temporada, Genero, fecha_creacion,ultima_modificacion,fecha_eliminacion)
 values(1013,'sandalia', 'Nike', 'Verano', 'Masculino',now(),now(),null);
 
+
 ### DATOS INVENTARIO
 insert into Inventario(stock, bodega, fecha_creacion,ultima_modificacion,fecha_eliminacion)
 values(5, 'Sección tres',now(),now(),null);
