@@ -46,14 +46,6 @@ values (3,'Proveedor1','Prueba1','proveedorprueba','1234','proveedorprueba@hotma
 insert into persona(idpersona,nombre,apellidos,usuario,contraseña,email,idtipodocp,idtipopersona,idrolp) 
 values (4,'Cliente1','Prueba1','clienteprueba','1234','clienteprueba@hotmail.com',1,2,6);
 
-### Modificacion de las características de las columnas para evitar duplicidad de datos
-ALTER TABLE `pedido` CHANGE `IdPedido` `IdPedido` INT(11) NOT NULL AUTO_INCREMENT;
-ALTER TABLE `persona_producto_pedido` CHANGE `Idppp` `Idppp` INT(11) NOT NULL AUTO_INCREMENT;
-ALTER TABLE `persona` CHANGE `Idpersona` `Idpersona` INT(11) NOT NULL UNIQUE;
-ALTER TABLE `persona` CHANGE `Idpersona` `Idpersona` INT(11) NOT NULL UNIQUE;
-ALTER TABLE `persona` CHANGE `usuario` `usuario` VARCHAR(45) UNIQUE;
-ALTER TABLE `persona` CHANGE `telefono` `telefono` INT(11) UNIQUE;
-ALTER TABLE `persona` CHANGE `email` `email` VARCHAR(45) UNIQUE;
 
 ### Datos tabla rompimiento persona_producto_pedido
 insert into persona_producto_pedido(idpersonapp,idproductopp) values (9,1010);
@@ -111,54 +103,7 @@ ALTER TABLE Placa_Producto_Sede ADD COLUMN Stock int(11);
 ### Datos tabla producto
 insert into producto(tipo,Marca,Coleccion_temporada,genero,idtalla) values ('Zapatilla','Adidas','Verano','Femenino',2);
 
-### Eliminacion columna fecha_eliminacion
-ALTER TABLE `placa_producto_sede` DROP COLUMN `fecha_eliminacion`;
-ALTER TABLE `ciudad` DROP COLUMN `fecha_eliminacion`;
-ALTER TABLE `factura` DROP COLUMN `fecha_eliminacion`;
-ALTER TABLE `inventario` DROP COLUMN `fecha_eliminacion`;
-ALTER TABLE `metodo_pago` DROP COLUMN `fecha_eliminacion`;
-ALTER TABLE `pais` DROP COLUMN `fecha_eliminacion`;
-ALTER TABLE `pedido` DROP COLUMN `fecha_eliminacion`;
-ALTER TABLE `persona` DROP COLUMN `fecha_eliminacion`;
-ALTER TABLE `persona_producto_pedido` DROP COLUMN `fecha_eliminacion`;
-ALTER TABLE `persona_trabaja_sede` DROP COLUMN `fecha_eliminacion`;
-ALTER TABLE `producto` DROP COLUMN `fecha_eliminacion`;
-ALTER TABLE `rol` DROP COLUMN `fecha_eliminacion`;
-ALTER TABLE `sede` DROP COLUMN `fecha_eliminacion`;
-ALTER TABLE `talla` DROP COLUMN `fecha_eliminacion`;
 
-### Creacion columna fecha_eliminacion
-ALTER TABLE `placa_producto_sede` ADD COLUMN `fecha_eliminacion` DATETIME;
-ALTER TABLE `ciudad` ADD COLUMN `fecha_eliminacion` DATETIME;
-ALTER TABLE `factura` ADD COLUMN `fecha_eliminacion` DATETIME;
-ALTER TABLE `inventario` ADD COLUMN `fecha_eliminacion` DATETIME;
-ALTER TABLE `metodo_pago` ADD COLUMN `fecha_eliminacion` DATETIME;
-ALTER TABLE `pais` ADD COLUMN `fecha_eliminacion` DATETIME;
-ALTER TABLE `pedido` ADD COLUMN `fecha_eliminacion` DATETIME;
-ALTER TABLE `persona` ADD COLUMN `fecha_eliminacion` DATETIME;
-ALTER TABLE `persona_producto_pedido` ADD COLUMN `fecha_eliminacion` DATETIME;
-ALTER TABLE `persona_trabaja_sede` ADD COLUMN `fecha_eliminacion` DATETIME;
-ALTER TABLE `producto` ADD COLUMN `fecha_eliminacion` DATETIME;
-ALTER TABLE `rol` ADD COLUMN `fecha_eliminacion` DATETIME;
-ALTER TABLE `sede` ADD COLUMN `fecha_eliminacion` DATETIME;
-ALTER TABLE `talla` ADD COLUMN `fecha_eliminacion` DATETIME;
-
-### Cambio característica de columna fecha_modificacion como no nula
-ALTER TABLE `placa_producto_sede` CHANGE `ultima_modificacion` `ultima_modificacion` DATETIME NULL DEFAULT CURRENT_TIMESTAMP;
-ALTER TABLE `ciudad` CHANGE `ultima_modificacion` `ultima_modificacion` DATETIME NULL DEFAULT CURRENT_TIMESTAMP;
-ALTER TABLE `factura` CHANGE `ultima_modificacion` `ultima_modificacion` DATETIME NULL DEFAULT CURRENT_TIMESTAMP;
-ALTER TABLE `inventario` CHANGE `ultima_modificacion` `ultima_modificacion` DATETIME NULL DEFAULT CURRENT_TIMESTAMP;
-ALTER TABLE `metodo_pago` CHANGE `ultima_modificacion` `ultima_modificacion` DATETIME NULL DEFAULT CURRENT_TIMESTAMP;
-ALTER TABLE `pais` CHANGE `ultima_modificacion` `ultima_modificacion` DATETIME NULL DEFAULT CURRENT_TIMESTAMP;
-ALTER TABLE `pedido` CHANGE `ultima_modificacion` `ultima_modificacion` DATETIME NULL DEFAULT CURRENT_TIMESTAMP;
-ALTER TABLE `persona` CHANGE `ultima_modificacion` `ultima_modificacion` DATETIME NULL DEFAULT CURRENT_TIMESTAMP;
-ALTER TABLE `persona_producto_pedido` CHANGE `ultima_modificacion` `ultima_modificacion` DATETIME NULL DEFAULT CURRENT_TIMESTAMP;
-ALTER TABLE `persona_trabaja_sede` CHANGE `ultima_modificacion` `ultima_modificacion` DATETIME NULL DEFAULT CURRENT_TIMESTAMP;
-ALTER TABLE `producto` CHANGE `ultima_modificacion` `ultima_modificacion` DATETIME NULL DEFAULT CURRENT_TIMESTAMP;
-ALTER TABLE `rol` CHANGE `ultima_modificacion` `ultima_modificacion` DATETIME NULL DEFAULT CURRENT_TIMESTAMP;
-ALTER TABLE `sede` CHANGE `ultima_modificacion` `ultima_modificacion` DATETIME NULL DEFAULT CURRENT_TIMESTAMP;
-ALTER TABLE `talla` CHANGE `ultima_modificacion` `ultima_modificacion` DATETIME NULL DEFAULT CURRENT_TIMESTAMP;
-show tables;
 select * from ciudad;
 select * from factura;
 select * from inventario;
