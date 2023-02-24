@@ -1,3 +1,24 @@
+use real_shoes;
+
+SET FOREIGN_KEY_CHECKS = 0;
+
+truncate pais; 
+truncate ciudad;
+truncate factura;
+truncate inventario;
+truncate metodo_pago;
+truncate pedido; 
+truncate persona;
+truncate persona_producto_pedido;
+truncate persona_trabaja_sede;
+truncate producto;
+truncate rol;
+truncate sede;
+truncate talla;
+truncate tipo_doc;
+truncate tipo_persona;
+truncate transacciones_inventario;
+
 insert into pais(nombrepais,capitalpais, fecha_creacion,ultima_modificacion,fecha_eliminacion) values
     ("Afganistán","Kabul",now(),now(),null),
     ("Albania","Tirana",now(),now(),null),
@@ -239,7 +260,7 @@ insert into rol (nombre_rol, descripcion_rol,fecha_creacion,ultima_modificacion,
     ('Gerente','Usuario con vistas privilegiadas.',now(),now(),null),
     ('Operador','Empleado de Real Shoes.',now(),now(),null),
     ('Proveedor','Aliados estratégicos de Real Shoes.',now(),now(),null),
-    ('Cliente','Cliente de Real Shoes');
+    ('Cliente','Cliente de Real Shoes',now(),now(),null);
 
 ## DATOS TIPO DOC
 insert into tipo_doc (nombre_td, descripcion_td, fecha_creacion,ultima_modificacion,fecha_eliminacion) values
@@ -313,3 +334,5 @@ insert into producto(tipo,Marca,Coleccion_temporada,genero,idtalla) values
 insert into inventario(idsede,fecha_creacion,ultima_modificacion) values
     (1,now(),now()),
     (2,now(),now());
+
+SET FOREIGN_KEY_CHECKS = 1;
