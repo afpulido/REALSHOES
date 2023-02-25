@@ -82,9 +82,9 @@ create table Inventario(
     fecha_eliminacion datetime
 );
 
-### TABLA TRANSACCIONES_INVENTARIO, MUESTRA LAS EXISTENCIAS DE UN RESPECTIVO INVENTARIO.
-create table Transacciones_Inventario(
-    idtransaccion int primary key auto_increment,
+### TABLA CONTENIDO_INVENTARIO, MUESTRA LAS EXISTENCIAS DE UN RESPECTIVO INVENTARIO.
+create table contenido_Inventario(
+    idci int primary key auto_increment,
     idplacainventario int (10),
     idproducto int(10),
     stock int,
@@ -185,7 +185,7 @@ ALTER table PERSONA ADD constraint fk_persona_tp foreign key(idtipopersona) refe
 ALTER table PERSONA ADD constraint fk_persona_td foreign key(idtipodocp) references  tipo_doc(idtd);
 
 alter table persona_producto_pedido add constraint fk_ppp_per foreign key (IdPersonapp) references persona(id);
-alter table persona_producto_pedido add constraint fk_ppp_ped foreign key (IdProductopp) references pedido(idpedido);
+alter table persona_producto_pedido add constraint fk_ppp_ped foreign key (IdProductopp) references producto(idproducto);
 
 alter table pedido add constraint fk_pedido_mp foreign key(idmetodopago) references metodo_pago(IdMetodo_Pago);
 alter table pedido add constraint fk_pedido_ppp foreign key(idppp) references persona_producto_pedido(idppp);
@@ -200,5 +200,5 @@ alter table sede add constraint fk_sede_ciudad foreign key (idciudadsede) refere
 
 alter table ciudad add constraint fk_ciudad_pais foreign key (idpaisc) references pais(idpais);
 
-alter table Transacciones_Inventario add constraint fk_transacciones_inventario foreign key (idplacainventario) references inventario(idplacainventario);
-alter table Transacciones_Inventario add constraint fk_transacciones_producto foreign key (idproducto) references producto(idproducto);
+alter table contenido_Inventario add constraint fk_contenidoinventario_inventario foreign key (idplacainventario) references inventario(idplacainventario);
+alter table contenido_Inventario add constraint fk_contenidoinventario_producto foreign key (idproducto) references producto(idproducto);

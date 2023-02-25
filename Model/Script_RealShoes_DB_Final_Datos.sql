@@ -17,7 +17,7 @@ truncate sede;
 truncate talla;
 truncate tipo_doc;
 truncate tipo_persona;
-truncate transacciones_inventario;
+truncate contenido_inventario;
 
 insert into pais(nombrepais,capitalpais, fecha_creacion,ultima_modificacion,fecha_eliminacion) values
     ("Afganistán","Kabul",now(),now(),null),
