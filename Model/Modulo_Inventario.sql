@@ -88,8 +88,8 @@ use real_shoes;
 
     alter table antiguo_producto add constraint fk_antiguo_producto_talla foreign key(Talla_Id) references talla(Talla_Id);
 
-    alter table antiguo_contenido_Inventario add constraint fk_antiguo_contenido_Inventario foreign key (Inventario_Id) references inventario(Inventario_Id);
-    alter table antiguo_contenido_Inventario add constraint fk_antiguo_contenido_Inventario foreign key (Producto_Id) references producto(Producto_Id);
+    alter table antiguo_contenido_Inventario add constraint fk_antiguo_contenido_inventario_inventario foreign key (Inventario_Id) references inventario(Inventario_Id);
+    alter table antiguo_contenido_Inventario add constraint fk_antiguo_contenido_inventario_producto foreign key (Producto_Id) references producto(Producto_Id);
 
 ### DATOS
 
@@ -158,7 +158,7 @@ use real_shoes;
         DELIMITER ;   
 
     /* TRIGGER QUE INSERTA DATOS ANTIGUOS A LA TABLA ANTIGUO_CONTENIDO_INVENTARIO, DESPUES DE UNA ACTUALIZACION
-    EN LA TABLA CONTENIDO_INVENTARIO */      
+    EN LA TABLA CONTENIDO_INVENTARIO */     
 
         DROP TRIGGER if exists after_update_contenido_inventario
 
