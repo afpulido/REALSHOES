@@ -174,5 +174,46 @@ use real_shoes;
             //
         
         DELIMITER ;
-                     
+    
+
+### VISTAS
+    /* VISTA QUE MUESTRA LOS PRODUCTOS CON STOCK BAJO */
+        CREATE OR REPLACE VIEW stock_bajo_vw AS 
+         SELECT c.Inventario_Id AS Codigo_Inventario,c.Producto_id AS Codigo_producto, 
+                    CONCAT(p.tipo," ", p.marca," ", p.Coleccion_temporada," ", p.genero) AS producto,
+                        pa.nombre AS Origen, t.numero AS Talla, c.stock  
+                            FROM contenido_Inventario AS c
+                                INNER JOIN producto AS p ON
+                                 c.producto_id = p.producto_id
+                                    INNER JOIN talla AS t ON
+                                        t.talla_id = p.talla_id
+                                            INNER JOIN pais AS pa ON
+                                                pa.pais_id = t.pais_id
+                                                    WHERE c.stock <= 3 AND c.stock > 0;
+    /* VISTA QUE MUESTRA LOS PRODUCTOS CON STOCK 0 */
+        CREATE OR REPLACE VIEW stock_cero_vw AS 
+         SELECT c.Inventario_Id AS Codigo_Inventario,c.Producto_id AS Codigo_producto, 
+                    CONCAT(p.tipo," ", p.marca," ", p.Coleccion_temporada," ", p.genero) AS producto,
+                        pa.nombre AS Origen, t.numero AS Talla, c.stock  
+                            FROM contenido_Inventario AS c
+                                INNER JOIN producto AS p ON
+                                 c.producto_id = p.producto_id
+                                    INNER JOIN talla AS t ON
+                                        t.talla_id = p.talla_id
+                                            INNER JOIN pais AS pa ON
+                                                pa.pais_id = t.pais_id
+                                                 WHERE c.stock = 0;
+    /* VISTA QUE MUESTRA LOS PRODUCTOS QUE CAMBIARON DE PRECIO */
+        CREATE OR REPLACE VIEW variacion_precios_vw AS
+            SELECT p.producto_id, CONCAT(p.tipo," ", p.marca," ", p.Coleccion_temporada," ", p.genero) AS producto,
+                    a.Valor_Venta AS Precio_Anterior, p.Valor_Venta AS Precio_Actual, 
+                        a.ultima_modificacion AS Fecha_Modificacion 
+                            FROM producto AS p
+                                INNER JOIN antiguo_producto AS a ON
+                                    p.producto_id = a.producto_id
+                                        ORDER BY a.ultima_modificacion DESC;
+                    
+    
+
+
 
