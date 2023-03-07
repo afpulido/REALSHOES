@@ -33,7 +33,7 @@ use real_shoes;
         fecha_eliminacion datetime
     );
 
-    ### TABLA FACTURA, ALMACENA LOS PEDIDOS CANCELADOS.
+    ### TABLA FACTURA, ALMACENA LOS PEDIDOS PAGOS.
     create table factura(
         Factura_Id int primary key auto_increment,
         descuento float,
@@ -48,10 +48,8 @@ use real_shoes;
     create table venta(
         Venta_Id int primary key auto_increment,
         Factura_Id int,
-        Persona_Id int,
-        Producto_Id int(10),
-        cantidad int,
-        fecha_creacion DATETIME default current_timestamp
+        fecha_creacion DATETIME default current_timestamp,
+        fecha_eliminacion datetime
     );
 
 ### TABLAS CON DATOS ELIMINADOS.
@@ -74,6 +72,13 @@ use real_shoes;
         ultima_modificacion datetime default current_timestamp,
         fecha_eliminacion datetime
     );
+    ### TABLA ELIMINADO_venta, ALMACENA VENTAS CANCELADAS.
+    create table Eliminado_venta(
+        Venta_Id int primary key auto_increment,
+        Factura_Id int,
+        fecha_creacion DATETIME default current_timestamp,
+        fecha_eliminacion datetime
+    );
 
 ### LLAVES FORANEAS
     
@@ -86,12 +91,11 @@ use real_shoes;
     alter table factura add constraint fk_factura_pedido foreign key(Pedido_Id) references pedido(Pedido_Id);
 
     alter table venta add constraint fk_venta_factura foreign key (Factura_Id) references factura(Factura_Id);
-    alter table venta add constraint fk_venta_persona foreign key (Persona_Id) references persona(Persona_Id);
-    alter table venta add constraint fk_venta_producto foreign key (Producto_Id) references producto(Producto_Id);
-
 ### LLAVES FORANEAS DATOS ELIMINADOS
 
     alter table eliminado_factura add constraint fk_eliminado_factura_pedido foreign key(Pedido_Id) references pedido(Pedido_Id);
+
+    alter table eliminado_venta add constraint fk_eliminado_venta_factura foreign key (Factura_Id) references factura(Factura_Id);
 
 ### DATOS 
     ### DATOS TABLA Metodo_pago
@@ -102,60 +106,63 @@ use real_shoes;
         (4,'QR');
 
 ### TRIGGERS
-    /* TRIGGER QUE DESPUES DE UNA VENTA ACTUALIZA EL INVENTARIO */  
-
-        DROP TRIGGER if exists after_compra_actualizacion_inventario;
+    /* TRIGGER QUE ACTUALIZA EL ESTADO DE LOS PRODUCTOS SELECCIONADOS */
+        DROP TRIGGER if exists after_insert_factura_update_estado;
 
         DELIMITER //
 
-        CREATE TRIGGER after_compra_actualizacion_inventario
+        CREATE TRIGGER after_insert_factura_update_estado
         AFTER INSERT ON factura
         FOR EACH ROW
-        BEGIN 
-        /* Para actualizar el inventario necesitamos saber si la factura es de 'COMPRA' o 'VENTA' para añadir
-        o restar unidades, el inventario de la respectiva sede que realiza la operacion, el id del producto y
-        las cantidades, en las siguientes lineas hallamos las respuestas */
-
-        /* Query para hallar el id del pedido de la última factura */
-            SET @pedido_id = (SELECT pedido_id FROM factura 
-            ORDER BY fecha_creacion DESC limit 1);
-
-        /* Tipo de factura */
-            SET @tipo = (SELECT  Tipo_Factura FROM persona_producto
-            INNER JOIN pedido ON pedido.persona_producto_id = persona_producto.persona_producto_id WHERE pedido.pedido_id =(@pedido_id));
-
-        /* Inventario */
-            SET @persona_producto_id = (SELECT  persona_producto_id FROM pedido
-            INNER JOIN factura ON factura.pedido_id = pedido.pedido_id WHERE factura.pedido_id =(@pedido_id));
-        
-            SET @persona_id = (SELECT ppp.persona_id FROM persona_producto AS ppp
-            INNER JOIN pedido AS p ON p.persona_producto_id = ppp.persona_producto_id WHERE p.persona_producto_id = (@persona_producto_id));
-
-            SET @sede = (SELECT pts.sede_id FROM persona_trabaja_sede AS pts
-            INNER JOIN persona_producto AS ppp ON pts.persona_id = ppp.persona_id WHERE ppp.persona_id =(@persona_id) limit 1);
-
-            SET @Inventario_id = (SELECT inv.inventario_id FROM inventario AS inv
-            INNER JOIN sede ON sede.sede_id = inv.sede_id WHERE sede.sede_id = (@sede));
-
-        /* ID producto */
-            SET @producto_id = (SELECT ppp.producto_id FROM persona_producto AS ppp
-            INNER JOIN pedido AS p ON p.persona_producto_id = ppp.persona_producto_id WHERE p.persona_producto_id = (@persona_producto_id));
-        
-        /* Cantidades */
-            SET @unidades = (SELECT  Cantidad FROM pedido
-            INNER JOIN factura ON factura.pedido_id = pedido.pedido_id WHERE factura.pedido_id =(@pedido_id));
-
-        /* condicional para añadir o restar unidades al inventario dependiendo del tipo_factura */
-        IF @tipo = 'COMPRA' THEN 
-            UPDATE contenido_inventario SET stock = stock + @unidades WHERE producto_id = @producto_id and Inventario_id = @Inventario_id;
-        ELSE
-            UPDATE contenido_inventario SET stock = stock - @unidades WHERE producto_id = @producto_id and Inventario_id = @Inventario_id; 
-        END IF;
+        BEGIN
+            SET @persona_id = (SELECT persona_Id FROM persona_producto AS pp
+                                INNER JOIN pedido AS p ON
+                                    pp.persona_producto_id = p.persona_producto_id
+                                        INNER JOIN factura AS f ON
+                                            p.pedido_id = f.pedido_id
+                                                ORDER BY f.fecha_creacion DESC
+                                                    LIMIT 1);
+            UPDATE persona_producto SET estado = 'FACTURADO', 
+                                        ultima_modificacion = now()
+                                            WHERE persona_Id = @persona_id 
+                                                AND estado = 'SELECCIONADO'
+                                                    AND Tipo_Factura = 'VENTA';
         END;
         //
 
         DELIMITER ;
+    /* TRIGGER QUE DESPUES DE UNA VENTA ACTUALIZA EL INVENTARIO */  
 
+        DROP TRIGGER if exists after_update_estado_facturado;
+
+        DELIMITER //
+
+        CREATE TRIGGER after_update_estado_facturado
+        AFTER UPDATE ON persona_producto
+        FOR EACH ROW
+        BEGIN
+            SET @inventario_id = (SELECT Inventario_Id FROM Inventario AS i
+                                    INNER JOIN persona_trabaja_sede AS pts ON
+                                        i.sede_id = pts.sede_id 
+                                            INNER JOIN persona_producto AS pp ON
+                                                pts.persona_Id = pp.persona_Id 
+                                                    ORDER BY pp.ultima_modificacion DESC
+                                                        LIMIT 1);
+            SET @producto_id = (SELECT producto_id FROM persona_producto AS pp
+                                    ORDER BY pp.ultima_modificacion DESC 
+                                        LIMIT 1);
+
+            IF new.estado = 'FACTURADO' THEN
+                UPDATE contenido_inventario SET stock = stock - 1
+                    WHERE Inventario_id = @inventario_id AND producto_id = @producto_id;
+            ELSE 
+                UPDATE contenido_inventario SET stock = stock + 1
+                    WHERE Inventario_id = @inventario_id AND producto_id = @producto_id;
+            END IF;
+        END;
+        //
+
+        DELIMITER ; 
 
     /* TRIGGER PARA REGISTRAR UNA VENTA DESPUES DE REALIZAR FACTURA */
         DROP TRIGGER if exists after_compra_insertar_registro_venta;
@@ -166,45 +173,12 @@ use real_shoes;
         AFTER INSERT ON factura    
         FOR EACH ROW 
         BEGIN
-        /* Para hacer una inserción en la tabla venta necesitamos conocer la factura_id,
-        la persona que registro la venta, la sede desde donde se realizo la transaccion el producto que se vendió y la cantidad */
-            
-        /* Factura_Id */ 
-            SET @factura_id = (SELECT factura_id FROM factura ORDER BY fecha_creacion DESC limit 1);
-
-        /* Tipo_factura */
-            SET @pedido_id = (SELECT pedido_id from factura ORDER BY fecha_creacion DESC Limit 1);
-
-            SET @tipo = (SELECT  Tipo_Factura FROM persona_producto
-            INNER JOIN pedido ON pedido.persona_producto_id = persona_producto.persona_producto_id WHERE pedido.pedido_id =(@pedido_id));
-
-        /* Inventario_Id */
-            SET @persona_producto_id = (SELECT persona_producto_id FROM pedido
-            INNER JOIN factura ON factura.pedido_id = pedido.pedido_id WHERE factura.pedido_id =(@pedido_id));
-            
-            SET @persona_id = (SELECT ppp.persona_id from persona_producto as ppp
-            INNER JOIN pedido as p ON p.persona_producto_id = ppp.persona_producto_id WHERE p.persona_producto_id =(@persona_producto_id)); 
-
-            SET @sede = (SELECT pts.sede_id FROM persona_trabaja_sede AS pts
-            INNER JOIN persona_producto AS ppp ON pts.persona_id = ppp.persona_id WHERE ppp.persona_id =(@persona_id) limit 1);
-
-            SET @Inventario_id = (SELECT inv.inventario_id FROM inventario AS inv
-            INNER JOIN sede ON sede.sede_id = inv.sede_id WHERE sede.sede_id = (@sede));
-            
-        /* ID producto */
-            SET @producto_id = (SELECT ppp.producto_id FROM persona_producto AS ppp
-            INNER JOIN pedido AS p ON p.persona_producto_id = ppp.persona_producto_id WHERE p.persona_producto_id = (@persona_producto_id));
-
-        /* Cantidades */
-            SET @unidades = (SELECT  Cantidad FROM pedido
-            INNER JOIN factura ON factura.pedido_id = pedido.pedido_id WHERE factura.pedido_id =(@pedido_id));
-        
-        /* condicional que registra la venta o la compra dependiendo del tipo_factura */
-        IF @tipo = 'COMPRA' THEN
-            INSERT INTO compra(Factura_Id,persona_id,producto_id,cantidad) values (@factura_id,@persona_id,@producto_id,@unidades);
-        ELSE
-            INSERT INTO venta(Factura_Id,persona_id,producto_id,cantidad) values (@factura_id,@persona_id,@producto_id,@unidades);
-        END IF;
+            SET @factura_id = (SELECT factura_id 
+                                 FROM factura 
+                                    ORDER BY fecha_creacion DESC 
+                                        LIMIT 1);
+            INSERT INTO VENTA (factura_id)
+                    values(@factura_id);
         END;
         //
 
@@ -263,8 +237,54 @@ use real_shoes;
         DELIMITER ;
 
     /* TRIGGER QUE AL ELIMINAR UN METODO DE PAGO, ALMACENA EL METODO DE PAGO ELIMINADO */
+        DROP TRIGGER if exists after_delete_metodo_pago
+
+        DELIMITER //
+
+        CREATE TRIGGER after_delete_metodo_pago
+        AFTER DELETE ON metodo_pago
+        FOR EACH ROW
+        BEGIN
+            INSERT INTO Eliminado_metodo_pago 
+                values(old.Metodo_pago_Id,old.tipo_pago,old.fecha_creacion,old.ultima_modificacion,now());
+        END;
+        //
+
+        DELIMITER ;
     /* TRIGGER QUE AL ELIMINAR UNA FACTURA, ALMACENA LA FACTURA CANCELADA */
-    /* TRIGGER QUE AL CANCELAR O ELIMINAR UNA FACTURA, RETORNA LAS UNIDADES AL INVENTARIO Y ELIMINA LA VENTA*/
+        DROP TRIGGER if exists after_delete_factura
+
+        DELIMITER //
+
+        CREATE TRIGGER after_delete_factura
+        AFTER DELETE ON factura
+        FOR EACH ROW
+        BEGIN
+            INSERT INTO eliminado_factura 
+                values(old.factura_id,old.descuento,old.impuesto,old.pedido_id,old.fecha_creacion,old.ultima_modificacion,now());
+           
+            DELETE FROM venta 
+                WHERE factura_id = old.factura_id;
+        END;
+        //
+
+        DELIMITER ;
+    /* TRIGGER QUE AL CANCELAR UNA VENTA, ALMACENA LA VENTA CANCELADA */
+        DROP TRIGGER if exists after_delete_venta
+
+        DELIMITER //
+
+        CREATE TRIGGER after_delete_venta
+        AFTER DELETE ON venta
+        FOR EACH ROW
+        BEGIN
+            INSERT INTO eliminado_venta 
+                values(old.venta_id,old.factura_id,old.fecha_creacion,now());
+        END;
+        //
+
+        DELIMITER ;
+    /* TRIGGER QUE ACTUALIZA EL ESTADO DE LOS PRODUCTOS FACTURADOS A CANCELADOS AL ELIMINAR UNA FACTURA */
 
         DROP TRIGGER if exists after_eliminar_factura_retornar_inventario
 
@@ -273,7 +293,18 @@ use real_shoes;
         AFTER INSERT ON Eliminado_factura
         FOR EACH ROW
         BEGIN
-            UPDATE contenido_inventario SET Stock = Old.stock + new.eliminado_factura.stock;
+            SET @persona_id = (SELECT persona_Id FROM persona_producto AS pp
+                                INNER JOIN pedido AS p ON
+                                    pp.persona_producto_id = p.persona_producto_id
+                                        INNER JOIN eliminado_factura AS e ON
+                                            p.pedido_id = e.pedido_id
+                                                ORDER BY e.fecha_creacion DESC
+                                                    LIMIT 1);
+            UPDATE persona_producto SET estado = 'CANCELADO', 
+                                        ultima_modificacion = now()
+                                            WHERE persona_Id = @persona_id 
+                                                AND estado = 'FACTURADO'
+                                                    AND Tipo_Factura = 'VENTA';
         END;
         //
 
