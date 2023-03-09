@@ -198,7 +198,7 @@ use real_shoes;
         BEGIN
             SET @Cantidad = (SELECT Count(CASE WHEN Persona_id AND Estado = 'SELECCIONADO' AND Tipo_Factura ='VENTA' THEN 1 END) 
                                         AS contador FROM persona_producto 
-                                            GROUP BY Persona_id );
+                                            GROUP BY Persona_id LIMIT 1);
             SET @persona_id = (SELECT pp.Persona_Id FROM persona_producto AS pp
                                         INNER JOIN pedido AS p on 
                                             p.persona_producto_id = pp.persona_producto_id
@@ -311,21 +311,20 @@ use real_shoes;
         DELIMITER ;
 
 ### VISTAS
-    /* VISTA QUE MUESTRA LOS DATOS DE LAS PERSONAS CON MAYOR NUMERO DE VENTAS EN UNA SEDE EN EL DIA */
-    /* VISTA QUE MUESTRA LOS DATOS DE LAS PERSONAS CON MAYOR NUMERO DE VENTAS EN UNA SEDE EN LA SEMANA */
-    /* VISTA QUE MUESTRA LOS DATOS DE LAS PERSONAS CON MAYOR NUMERO DE VENTAS EN UNA SEDE EN EL MES */
-    /* VISTA QUE MUESTRA LOS DATOS DE LAS PERSONAS CON MAYOR NUMERO DE VENTAS EN UNA SEDE AL AÑO */
-
-    /* VISTA QUE MUESTRA LOS DATOS DE LAS PERSONAS CON MAYOR NUMERO DE VENTAS EN TODAS LAS SEDES EN EL DIA */
-    /* VISTA QUE MUESTRA LOS DATOS DE LAS PERSONAS CON MAYOR NUMERO DE VENTAS EN TODAS LAS SEDE EN LA SEMANA */
-    /* VISTA QUE MUESTRA LOS DATOS DE LAS PERSONAS CON MAYOR NUMERO DE VENTAS EN TODAS LAS SEDES EN EL MES */
-    /* VISTA QUE MUESTRA LOS DATOS DE LAS PERSONAS CON MAYOR NUMERO DE VENTAS EN TODAS LAS SEDES AL AÑO */
-
-    /* VISTA QUE MUESTRA LA SEDE CON MAYOR VENTA EN EL DIA */
-    /* VISTA QUE MUESTRA LA SEDE CON MAYOR VENTA EN LA SEMANA */
-    /* VISTA QUE MUESTRA LA SEDE CON MAYOR VENTA EN EL MES */
-    /* VISTA QUE MUESTRA LA SEDE CON MAYOR VENTA EN EL AÑO */
-
+    /* VISTA QUE MUESTRA LOS DATOS DE LAS PERSONAS CON VENTAS */
+        CREATE OR REPLACE VIEW persona_ventas_vw AS
+            SELECT pp.persona_id, CONCAT(p.nombre, " ",p.apellidos) AS Nombre, 
+                    COUNT(pp.persona_id) AS Transacciones, SUM(pe.Valor_Total) AS Venta 
+                        FROM persona AS p
+                         INNER JOIN persona_producto AS pp ON
+                            p.persona_Id = pp.persona_id
+                                INNER JOIN pedido AS pe ON
+                                    pp.persona_producto_id = pe.persona_producto_id
+                                        INNER JOIN factura AS f ON
+                                            pe.pedido_id = f.pedido_id
+                                                INNER JOIN venta AS v ON
+                                                    f.factura_id = v.factura_id
+                                                        GROUP BY pp.persona_id;
     /* VISTA QUE MUESTRA LOS DATOS DE UN PEDIDO */
     /* VISTA QUE MUESTRA LOS DATOS DE UNA FACTURA */
     /* VISTA QUE MUESTRA LOS DATOS DE UNA FACTURA CANCELADA */
