@@ -15,7 +15,6 @@ use real_shoes;
         Persona_Id int, 
         Producto_Id int,
         Estado SET('SELECCIONADO','CANCELADO','FACTURADO') default'SELECCIONADO',
-        Tipo_Factura SET('COMPRA','VENTA') default 'VENTA',
         fecha_creacion datetime default current_timestamp,
         ultima_modificacion datetime default current_timestamp,
         fecha_eliminacion datetime 
@@ -125,8 +124,7 @@ use real_shoes;
             UPDATE persona_producto SET estado = 'FACTURADO', 
                                         ultima_modificacion = now()
                                             WHERE persona_Id = @persona_id 
-                                                AND estado = 'SELECCIONADO'
-                                                    AND Tipo_Factura = 'VENTA';
+                                                AND estado = 'SELECCIONADO';
         END;
         //
 
@@ -196,14 +194,14 @@ use real_shoes;
         AFTER INSERT on persona_producto
         FOR EACH ROW
         BEGIN
-            SET @Cantidad = (SELECT Count(CASE WHEN Persona_id AND Estado = 'SELECCIONADO' AND Tipo_Factura ='VENTA' THEN 1 END) 
+            SET @Cantidad = (SELECT Count(CASE WHEN Persona_id AND Estado = 'SELECCIONADO' THEN 1 END) 
                                         AS contador FROM persona_producto 
-                                            GROUP BY Persona_id LIMIT 1);
-            SET @persona_id = (SELECT pp.Persona_Id FROM persona_producto AS pp
-                                        INNER JOIN pedido AS p on 
-                                            p.persona_producto_id = pp.persona_producto_id
-                                                ORDER BY pp.fecha_creacion DESC
+                                            GROUP BY Persona_id
+                                                ORDER BY fecha_creacion DESC
                                                     LIMIT 1);
+            SET @persona_id = (SELECT Persona_Id FROM persona_producto
+                                    ORDER BY fecha_creacion DESC
+                                        LIMIT 1);
 
             SET @persona_producto_id = (SELECT persona_producto_id FROM persona_producto 
                                             WHERE persona_id = (@persona_id) 
@@ -215,8 +213,7 @@ use real_shoes;
                                     INNER JOIN persona_producto AS pp on
                                         p.producto_id = pp.producto_id
                                             WHERE pp.persona_id = (@persona_id) 
-                                                AND Estado = 'SELECCIONADO' 
-                                                    AND Tipo_Factura = 'VENTA');
+                                                AND Estado = 'SELECCIONADO');
             IF @Cantidad = 1 THEN
                 INSERT INTO pedido(Cantidad,Valor_Total,persona_producto_id) 
                                 values(1,@valor_total,new.persona_producto_id);
@@ -303,8 +300,7 @@ use real_shoes;
             UPDATE persona_producto SET estado = 'CANCELADO', 
                                         ultima_modificacion = now()
                                             WHERE persona_Id = @persona_id 
-                                                AND estado = 'FACTURADO'
-                                                    AND Tipo_Factura = 'VENTA';
+                                                AND estado = 'FACTURADO';
         END;
         //
 
