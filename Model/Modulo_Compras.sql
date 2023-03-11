@@ -64,9 +64,12 @@ use real_shoes;
     /* INSERT INTO SEDE_COMPRA (Sede_id,Producto_id,Tipo,Marca,Coleccion_Temporada,Genero,Valor_Compra,Cantidad)
         values (1,1,'Zapatilla','Adidas','Verano','Femenino',20000,10); */
 
+    ### DATOS FACTURA_COMPRA
+    /* insert into factura_compra(pedido_compra_id)values(1); */
+
 ### TRIGGERS
     /* TRIGGER QUE ACTUALIZA EL ESTADO DE LOS PRODUCTOS SELECCIONADOS */
-        /* DROP TRIGGER if exists after_insert_factura_compra_update_estado;
+        DROP TRIGGER if exists after_insert_factura_compra_update_estado;
 
         DELIMITER //
 
@@ -88,11 +91,33 @@ use real_shoes;
         END;
         //
 
-        DELIMITER ; */
+        DELIMITER ;
     
     /* TRIGGER QUE DESPUES DE UNA COMPRA ACTUALIZA EL INVENTARIO */  
+        /* DROP TRIGGER if exists after_compra_update_create_inventario;
+
+        DELIMITER //
+        
+        CREATE TRIGGER after_compra_update_create_inventario
+        AFTER INSERT ON factura_compra
+        FOR EACH ROW
+        BEGIN 
+            SELECT COUNT(producto_id) AS Validador 
+                FROM producto 
+                    WHERE producto_id = @producto_id;
+
+            IF Validador >= 1 THEN
+                UPDATE contenido_inventario set stock = stock + @cantidad 
+                    WHERE producto_id = @producto_id 
+                        AND inventario_id = @inventario_id;
+            ELSE 
+                INSERT INTO producto(Producto_id,)
+        END;
+        //
+
+        DELIMITER ; */
     /* TRIGGER PARA REGISTRAR UNA COMPRA DESPUES DE REALIZAR FACTURA_COMPRA */
-        /* DROP TRIGGER if exists after_compra_insertar_registro_venta;
+        DROP TRIGGER if exists after_compra_insertar_registro_venta;
 
         DELIMITER //
 
@@ -110,7 +135,7 @@ use real_shoes;
         //
 
         DELIMITER ;
- */
+
 
 
     /* TRIGGER QUE ACTUALIZA EL VALOR DEL PEDIDO_COMPRA DEPENDIENDO DE LAS CANTIDADES Y EL PRODUCTO SELECCIONADO */
@@ -170,18 +195,16 @@ use real_shoes;
 
 ### VISTAS
      /* VISTA QUE MUESTRA LOS DATOS DE LAS PERSONAS CON VENTAS */
-        /* CREATE OR REPLACE VIEW persona_ventas_vw AS
-            SELECT pp.persona_id, CONCAT(p.nombre, " ",p.apellidos) AS Nombre, 
-                    COUNT(pp.persona_id) AS Transacciones, SUM(pe.Valor_Total) AS Venta 
-                        FROM persona AS p
-                         INNER JOIN persona_producto AS pp ON
-                            p.persona_Id = pp.persona_id
-                                INNER JOIN pedido AS pe ON
-                                    pp.persona_producto_id = pe.persona_producto_id
-                                        INNER JOIN factura AS f ON
-                                            pe.pedido_id = f.pedido_id
-                                                INNER JOIN venta AS v ON
-                                                    f.factura_id = v.factura_id
-                                                        GROUP BY pp.persona_id;
+       CREATE OR REPLACE VIEW sede_compras_vw AS
+            SELECT sc.sede_id, s.nombre AS Almacen,  
+                    COUNT(sc.sede_id) AS Transacciones, SUM(pc.Valor_Total) AS Valor_Compra
+                        FROM sede AS s
+                            INNER JOIN sede_compra AS sc ON
+                                s.sede_id = sc.sede_id
+                                    INNER JOIN pedido_compra AS pc ON
+                                        pc.sede_compra_id = sc.sede_compra_id
+                                            INNER JOIN factura_compra AS fc ON
+                                                pc.pedido_compra_id = fc.pedido_compra_id
+                                                    GROUP BY sc.sede_id;
    
-     */
+    

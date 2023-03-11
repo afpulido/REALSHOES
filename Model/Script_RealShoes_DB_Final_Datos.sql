@@ -339,7 +339,7 @@ insert into inventario(Sede_Id) values
 INSERT INTO pedido(Tipo_factura,cantidad,metodo_pago_id,persona_producto_id) values ('COMPRA',10,2,1);
 INSERT INTO factura(pedido_id) values (1);
 
-INSERT INTO persona_producto(Persona_id,Producto_id,Tipo_Factura) values (1,1,1);
+INSERT INTO persona_producto(Persona_id,Producto_id) values (1,1);
 INSERT INTO pedido(cantidad,metodo_pago_id,persona_producto_id) values (10,2,1);
 INSERT INTO factura(pedido_id) values (1);*/
 SET FOREIGN_KEY_CHECKS = 1;

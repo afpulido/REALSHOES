@@ -24,7 +24,7 @@
                 </li>
 
                 <li class="nav-item">
-                <a class="nav-link" href="View\Clientes\logout.php" tabindex="-1" aria-disabled="true">*Cerrar Sesión</a>
+                <a class="nav-link" href="..\cliente\logout.php" tabindex="-1" aria-disabled="true">*Cerrar Sesión</a>
                 </li>
                 <!--debe ir condicion de estar logeado -->
             </ul>

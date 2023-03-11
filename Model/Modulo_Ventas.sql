@@ -163,11 +163,11 @@ use real_shoes;
         DELIMITER ; 
 
     /* TRIGGER PARA REGISTRAR UNA VENTA DESPUES DE REALIZAR FACTURA */
-        DROP TRIGGER if exists after_compra_insertar_registro_venta;
+        DROP TRIGGER if exists after_venta_insertar_registro_venta;
 
         DELIMITER //
 
-        CREATE TRIGGER after_compra_insertar_registro_venta
+        CREATE TRIGGER after_venta_insertar_registro_venta
         AFTER INSERT ON factura    
         FOR EACH ROW 
         BEGIN
@@ -175,7 +175,7 @@ use real_shoes;
                                  FROM factura 
                                     ORDER BY fecha_creacion DESC 
                                         LIMIT 1);
-            INSERT INTO VENTA (factura_id)
+            INSERT INTO venta(factura_id)
                     values(@factura_id);
         END;
         //
