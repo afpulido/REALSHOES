@@ -91,9 +91,12 @@
                     <div class='input-group mb-3'>
                         <span class='input-group-text'>Rol de usuario</span>
                         <select class='form-control' name='rolusuario' id='' required>
-                            <option value='1'>Administrador</option>
-                            <option value='2'>Cliente</option>
-                            <option value='3'>Auxiliar administrativo</option>
+                            <option value='1'>Administrador__ARP</option>
+                            <option value='2'>Administrador_APM</option>
+                            <option value='3'>Gerente</option>
+                            <option value='4'>Operador</option>
+                            <option value='5'>Cliente</option>
+                            
                         </select>
                     </div>
                     <div class='input-group mb-3'>

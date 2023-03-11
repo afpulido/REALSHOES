@@ -8,7 +8,7 @@ use real_shoes;
     
     ### TABLA PAIS, ALMACENA LOS DATOS DE LOS PAISES.
     create table pais(
-        Pais_Id int primary key auto_increment,
+        pais_id int primary key auto_increment,
         nombre varchar(45),
         capital varchar(45),
         fecha_creacion datetime default current_timestamp,
@@ -18,9 +18,9 @@ use real_shoes;
 
     ## TABLA CIUDAD, ALMACENA LOS DATOS DE LAS CIUDADES.
     create table ciudad(
-        Ciudad_Id int primary key auto_increment,
+        ciudad_id int primary key auto_increment,
         nombre varchar(45),
-        Pais_Id int,
+        pais_id int,
         fecha_creacion datetime default current_timestamp,
         ultima_modificacion datetime default current_timestamp,
         fecha_eliminacion datetime
@@ -28,7 +28,7 @@ use real_shoes;
 
     ### TABLA ROL, DESCRIBE EL ROL DEL USUARIO.
     create table rol(
-        Rol_Id int(2) primary key auto_increment,
+        rol_id int(2) primary key auto_increment,
         nombre varchar(45),
         descripcion varchar(45),
         fecha_creacion datetime default current_timestamp,
@@ -39,7 +39,7 @@ use real_shoes;
 
     ### TABLA TIPO DOC, DESCRIBE EL DOCUMENTO DEL USUARIO.
     create table tipo_doc(
-        Tipo_Doc_Id int(2) primary key auto_increment,
+        tipo_doc_id int(2) primary key auto_increment,
         nombre varchar(45),
         descripcion varchar(45),
         fecha_creacion datetime default current_timestamp,
@@ -49,7 +49,7 @@ use real_shoes;
 
     ### TABLA TIPO persona DESCRIBE EL TIPO DE USUARIO (natural, jurídico, proveedor).
     create table tipo_persona(
-        Tipo_persona_Id int(2) primary key auto_increment,
+        tipo_persona_id int(2) primary key auto_increment,
         nombre varchar(45),
         descripcion  varchar(45),
         fecha_creacion datetime default current_timestamp,
@@ -60,7 +60,7 @@ use real_shoes;
     ### TABLA persona, ALMACENA LOS DATOS DE LOS USUARIOS.
     create table persona(
         id int primary key auto_increment,
-        persona_Id int NOT NULL UNIQUE, 
+        persona_id int NOT NULL UNIQUE, 
         nombre varchar(45),
         apellidos varchar(45),
         direccion varchar(45),
@@ -68,9 +68,9 @@ use real_shoes;
         contraseña varchar(45),
         telefono varchar(15) UNIQUE,
         email varchar(45) UNIQUE,
-        Tipo_Doc_Id int,
-        Tipo_persona_Id int,
-        Rol_Id int,
+        tipo_doc_id int,
+        tipo_persona_id int,
+        rol_id int,
         fecha_creacion datetime default current_timestamp,
         ultima_modificacion datetime default current_timestamp,
         fecha_eliminacion datetime
@@ -78,12 +78,12 @@ use real_shoes;
 
     ### TABLA SEDE, DESCRIBE LAS SEDES DE LA ORGANIZACIÓN.
     create table sede (
-        Sede_Id int primary key auto_increment,
+        sede_id int primary key auto_increment,
         nombre varchar(45),
         direccion varchar(45),
         telefono varchar(45),
         email varchar(45),
-        Ciudad_Id int,
+        ciudad_id int,
         fecha_creacion datetime default current_timestamp,
         ultima_modificacion datetime default current_timestamp,
         fecha_eliminacion datetime
@@ -91,9 +91,9 @@ use real_shoes;
 
     ### TABLA persona TRABAJA SEDE, ALMACENA LOS EMPLEADOS DE UNA SEDE.
     create table persona_trabaja_sede(
-        persona_Idsede int primary key auto_increment,
-        persona_Id int,
-        Sede_Id int,
+        persona_sede_id int primary key auto_increment,
+        persona_id int,
+        sede_id int,
         fecha_creacion datetime default current_timestamp,
         ultima_modificacion datetime default current_timestamp,
         fecha_eliminacion datetime
@@ -104,7 +104,7 @@ use real_shoes;
     ### TABLA persona, ALMACENA LOS DATOS ANTIGUOS DE LOS USUARIOS.
     create table antiguo_persona(
         id int primary key auto_increment,
-        persona_Id int, 
+        persona_id int, 
         nombre varchar(45),
         apellidos varchar(45),
         direccion varchar(45),
@@ -112,9 +112,9 @@ use real_shoes;
         contraseña varchar(45),
         telefono varchar(15),
         email varchar(45),
-        Tipo_Doc_Id int,
-        Tipo_persona_Id int,
-        Rol_Id int,
+        tipo_doc_id int,
+        tipo_persona_id int,
+        rol_id int,
         fecha_creacion datetime default current_timestamp,
         ultima_modificacion datetime default current_timestamp,
         fecha_eliminacion datetime
@@ -122,9 +122,9 @@ use real_shoes;
 
     ### TABLA persona TRABAJA SEDE, ALMACENA LA ANTERIOR SEDE DE UN EMPLEADO.
     create table antiguo_persona_trabaja_sede(
-        persona_Idsede int primary key auto_increment,
-        persona_Id int,
-        Sede_Id int,
+        persona_sede_id int primary key auto_increment,
+        persona_id int,
+        sede_id int,
         fecha_creacion datetime default current_timestamp,
         ultima_modificacion datetime default current_timestamp,
         fecha_eliminacion datetime
@@ -132,21 +132,21 @@ use real_shoes;
 
 ### LLAVES FORANEAS
 
-    alter table ciudad add constraint fk_ciudad_pais foreign key (Pais_Id) references pais(Pais_Id);
+    alter table ciudad add constraint fk_ciudad_pais foreign key (pais_id) references pais(pais_id);
 
-    alter table persona add constraint fk_persona_rol foreign key(Rol_Id) references  rol(Rol_Id);
-    alter table persona add constraint fk_persona_tipo_persona foreign key(Tipo_persona_Id) references  tipo_persona(Tipo_persona_Id);
-    alter table persona add constraint fk_persona_tipo_doc foreign key(Tipo_Doc_Id) references  tipo_doc(Tipo_Doc_Id);
+    alter table persona add constraint fk_persona_rol foreign key(rol_id) references  rol(rol_id);
+    alter table persona add constraint fk_persona_tipo_persona foreign key(tipo_persona_id) references  tipo_persona(tipo_persona_id);
+    alter table persona add constraint fk_persona_tipo_doc foreign key(tipo_doc_id) references  tipo_doc(tipo_doc_id);
 
-    alter table sede add constraint fk_sede_ciudad foreign key (Ciudad_Id) references ciudad(Ciudad_Id);
+    alter table sede add constraint fk_sede_ciudad foreign key (ciudad_id) references ciudad(ciudad_id);
 
     alter table persona_trabaja_sede add constraint fk_persona_trabaja_sede_sede foreign key (sede_id) references sede(sede_id);
 
 ### LLAVES FORANEAS DATOS ANTIGUOS
 
-    alter table antiguo_persona add constraint fk_antiguo_persona_rol foreign key(Rol_Id) references  rol(Rol_Id);
-    alter table antiguo_persona add constraint fk_antiguo_persona_tipo_persona foreign key(Tipo_persona_Id) references  tipo_persona(Tipo_persona_Id);
-    alter table antiguo_persona add constraint fk_antiguo_persona_tipo_doc foreign key(Tipo_Doc_Id) references  tipo_doc(Tipo_Doc_Id);
+    alter table antiguo_persona add constraint fk_antiguo_persona_rol foreign key(rol_id) references  rol(rol_id);
+    alter table antiguo_persona add constraint fk_antiguo_persona_tipo_persona foreign key(tipo_persona_id) references  tipo_persona(tipo_persona_id);
+    alter table antiguo_persona add constraint fk_antiguo_persona_tipo_doc foreign key(tipo_doc_id) references  tipo_doc(tipo_doc_id);
 
     alter table antiguo_persona_trabaja_sede add constraint fk_antiguo_persona_trabaja_sede_sede foreign key (sede_id) references sede(sede_id);
 
@@ -390,7 +390,6 @@ use real_shoes;
         ('Administrador_APM','Administrador privilegios medios.'),
         ('Gerente','Usuario con vistas privilegiadas.'),
         ('Operador','Empleado de Real Shoes.'),
-        ('Proveedor','Aliados estratégicos de Real Shoes.'),
         ('Cliente','Cliente de Real Shoes');
 
     insert into tipo_doc (nombre, descripcion) values
@@ -404,26 +403,25 @@ use real_shoes;
         ('Natural', 'Todos los individuos de la especie humana.'),
         ('Jurídica', 'Org. formada por varias personas físicas.');
 
-    insert into persona(Persona_Id,nombre,apellidos,usuario,contraseña,email,Tipo_doc_id,Tipo_persona_id,rol_id) values 
+    insert into persona(persona_id,nombre,apellidos,usuario,contraseña,email,tipo_doc_id,tipo_persona_id,rol_id) values 
         (1022968811,'Omar Fernando','Bohorquez Preciado','ofbohorquez1','1234','ofbohorquez1@misena.edu.co',1,1,1),
         (1023976365,'Andres Felipe','Pulido Rios','andfpulido1','1234','andfpulido1@misena.edu.co',1,1,2),
         (1013594945,'Diego Alexander','Diaz Triana','diego.diaz949','1234','diego.diaz949@misena.edu.co',1,1,2),
         (1012453759,'Deiver Giovanny','Morales Duarte','deiver.morales','1234','deiver.morales@misena.edu.co',1,1,2),
         (1022972233,'Jaime','Olaya Hernandez','jolaya3','1234','jolaya3@misena.edu.co',1,1,2);
 
-    insert into persona(Persona_Id,nombre,apellidos,usuario,contraseña,email,Tipo_doc_id,Tipo_persona_id,rol_id) values 
+    insert into persona(persona_id,nombre,apellidos,usuario,contraseña,email,tipo_doc_id,tipo_persona_id,rol_id) values 
         (1,'Gerente1','Prueba1','gerenteprueba','1234','gerenteprueba@hotmail.com',1,1,3),
         (2,'Gerente2','Prueba2','gerente2prueba','1234','gerente2prueba@hotmail.com',1,1,3),
         (3,'Operador1','Prueba1','operadorprueba','1234','operadorprueba@hotmail.com',1,1,4),
         (4,'Operador2','Prueba2','operador2prueba','1234','operador2prueba@hotmail.com',1,1,4),
-        (5,'Proveedor1','Prueba1','proveedorprueba','1234','proveedorprueba@hotmail.com',1,2,5),
-        (6,'Cliente1','Prueba1','clienteprueba','1234','clienteprueba@hotmail.com',1,2,6);
+        (5,'Cliente1','Prueba1','clienteprueba','1234','clienteprueba@hotmail.com',1,2,5);
 
     insert into sede(nombre,ciudad_id) values
         ('Restrepo',4),
         ('Venecia',4);
 
-    insert into Persona_trabaja_sede(Persona_Id,Sede_Id)values 
+    insert into Persona_trabaja_sede(persona_id,sede_id)values 
         (1,1),
         (2,2),
         (3,1),
@@ -440,8 +438,8 @@ use real_shoes;
         AFTER UPDATE on persona 
         FOR EACH ROW 
             BEGIN
-                INSERT INTO antiguo_persona(persona_Id,nombre,apellidos,direccion,usuario,contraseña,telefono,email,tipo_doc_id,tipo_persona_id,rol_id,fecha_creacion,ultima_modificacion)
-                    values(old.persona_Id,old.nombre,old.apellidos,old.direccion,old.usuario,old.contraseña,old.telefono,old.email,old.tipo_doc_id,old.tipo_persona_id,old.rol_id,old.fecha_creacion,now());      
+                INSERT INTO antiguo_persona(persona_id,nombre,apellidos,direccion,usuario,contraseña,telefono,email,tipo_doc_id,tipo_persona_id,rol_id,fecha_creacion,ultima_modificacion)
+                    values(old.persona_id,old.nombre,old.apellidos,old.direccion,old.usuario,old.contraseña,old.telefono,old.email,old.tipo_doc_id,old.tipo_persona_id,old.rol_id,old.fecha_creacion,now());      
             END;
             //
         DELIMITER ;

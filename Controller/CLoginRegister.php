@@ -13,7 +13,7 @@ if(isset($_POST['registrar'])){
             $email =mysqli_real_escape_string($conectar, $_REQUEST['email']);
             $password =mysqli_real_escape_string($conectar, $_REQUEST['password']);
 
-            $consulta = "INSERT INTO persona (idpersona,nombre, apellidos,direccion,usuario,contraseña, telefono, email,idtipodocp,idtipopersona, idrolp,fecha_creacion, ultima_modificacion, fecha_eliminacion )
+            $consulta = "INSERT INTO persona (persona_id,nombre, apellidos,direccion,usuario,contraseña, telefono, email,tipo_doc_id,tipo_persona_id, rol_id,fecha_creacion, ultima_modificacion, fecha_eliminacion )
                         VALUES ($id,null,null,null,null,'$password',null,'$email',1,1,6,now(),now(),null)";
 
                 if(mysqli_query($conectar,$consulta)){

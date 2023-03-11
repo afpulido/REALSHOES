@@ -25,14 +25,14 @@
 
         /** consulta de actualizacion de datos */
         $actualizar =   "UPDATE persona
-                            SET idpersona = $id,
+                            SET persona_id = $id,
                                 nombre ='$nombre',
                                 apellidos = '$apellido',
                                 direccion = '$dir',
                                 telefono ='$cel',
-                                idtipodocp =$tipodoc,
-                                idtipopersona=$tipoUser,
-                                idrolp =$rol, 
+                                tipo_doc_id =$tipodoc,
+                                tipo_persona_id=$tipoUser,
+                                rol_id =$rol, 
                                 ultima_modificacion= now(),
                                 fecha_eliminacion=null
                             WHERE      email = '$email'";

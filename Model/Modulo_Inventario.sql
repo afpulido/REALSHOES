@@ -2,41 +2,41 @@ use real_shoes;
 ### TABLAS
     ### TABLA TALLA, ALMACENA LAS TALLAS Y SU ORIGEN. 
     create table talla(
-        Talla_Id int primary key auto_increment,
+        talla_id int primary key auto_increment,
         pais_id int,
         numero int,
         fecha_creacion datetime default current_timestamp,
         ultima_modificacion datetime default current_timestamp,
         fecha_eliminacion datetime
     );
-    ### TABLA PRODUCTOS, INFORMACIÓN SOBRE LOS PRODUCTOS
-    Create table Producto(
-        Producto_Id int(10) primary key auto_increment, 
-        Tipo varchar(45),
-        Marca varchar(45) , 
-        Coleccion_Temporada varchar(45),
-        Genero varchar(45),
-        Valor_Compra float,
-        Valor_Venta float,
-        Talla_Id int,
+    ### TABLA productoS, INFORMACIÓN SOBRE LOS productoS
+    Create table producto(
+        producto_id int(10) primary key auto_increment, 
+        tipo varchar(45),
+        marca varchar(45) , 
+        coleccion_temporada varchar(45),
+        genero varchar(45),
+        valor_compra float,
+        valor_venta float,
+        talla_id int,
         fecha_creacion datetime default current_timestamp,
         ultima_modificacion datetime default current_timestamp,
         fecha_eliminacion datetime
     );
-    ### TABLA INVENTARIO, MUESTRA EL CODIGO DEL INVENTARIO Y SU RESPECTIVA SEDE.
-    create table Inventario(
-        Inventario_Id int(10) primary key auto_increment, 
-        Sede_Id int UNIQUE,
+    ### TABLA inventario, MUESTRA EL CODIGO DEL inventario Y SU RESPECTIVA SEDE.
+    create table inventario(
+        inventario_id int(10) primary key auto_increment, 
+        sede_id int UNIQUE,
         fecha_creacion datetime default current_timestamp,
         ultima_modificacion datetime default current_timestamp,
         fecha_eliminacion datetime
     );
 
-    ### TABLA CONTENIDO_INVENTARIO, ALMACENA LAS EXISTENCIAS DE UN RESPECTIVO INVENTARIO.
-    create table Contenido_inventario(
-        Contenido_inventario_Id int primary key auto_increment,
-        Inventario_Id int (10),
-        Producto_Id int(10),
+    ### TABLA contenido_inventario, ALMACENA LAS EXISTENCIAS DE UN RESPECTIVO inventario.
+    create table contenido_inventario(
+        contenido_inventario_id int primary key auto_increment,
+        inventario_id int (10),
+        producto_id int(10),
         stock int default 0,
         fecha_creacion datetime default current_timestamp,
         ultima_modificacion datetime default current_timestamp,
@@ -45,26 +45,26 @@ use real_shoes;
     );
 
 ### TABLAS CON DATOS ANTIGUOS
-    ### TABLA ANTIGUO_PERSONA, ALMACENA LOS DATOS ANTIGUOS DE LA TABLA PRODUCTOS.
+    ### TABLA ANTIGUO_PERSONA, ALMACENA LOS DATOS ANTIGUOS DE LA TABLA productoS.
     Create table antiguo_producto(
-        Producto_Id int(10) primary key auto_increment, 
-        Tipo varchar(45),
-        Marca varchar(45) , 
-        Coleccion_Temporada varchar(45),
-        Genero varchar(45),
-        Valor_Compra float,
-        Valor_Venta float,
-        Talla_Id int,
+        producto_id int(10) primary key auto_increment, 
+        tipo varchar(45),
+        marca varchar(45) , 
+        coleccion_temporada varchar(45),
+        genero varchar(45),
+        valor_compra float,
+        valor_venta float,
+        talla_id int,
         fecha_creacion datetime default current_timestamp,
         ultima_modificacion datetime default current_timestamp,
         fecha_eliminacion datetime
     );
 
-    ### TABLA ANTIGUO_CONTENIDO_INVENTARIO, ALMACENA LOS DATOS ANTIGUOS DE LA TABLA CONTENIDO_INVENTARIO.
+    ### TABLA ANTIGUO_contenido_inventario, ALMACENA LOS DATOS ANTIGUOS DE LA TABLA contenido_inventario.
     create table antiguo_contenido_inventario(
-        Contenido_inventario_Id int primary key auto_increment,
-        Inventario_Id int (10),
-        Producto_Id int(10),
+        contenido_inventario_id int primary key auto_increment,
+        inventario_id int (10),
+        producto_id int(10),
         stock int default 0,
         fecha_creacion datetime default current_timestamp,
         ultima_modificacion datetime default current_timestamp,
@@ -77,19 +77,19 @@ use real_shoes;
 
     alter table talla add constraint fk_talla_pais foreign key (pais_id) references pais(pais_id);
 
-    alter table producto add constraint fk_producto_talla foreign key(Talla_Id) references talla(Talla_Id);
+    alter table producto add constraint fk_producto_talla foreign key(talla_id) references talla(talla_id);
 
-    alter table inventario add constraint fk_inventario_sede foreign key (Sede_Id) references sede(Sede_Id);
+    alter table inventario add constraint fk_inventario_sede foreign key (sede_id) references sede(sede_id);
 
-    alter table contenido_Inventario add constraint fk_contenidoinventario_inventario foreign key (Inventario_Id) references inventario(Inventario_Id);
-    alter table contenido_Inventario add constraint fk_contenidoinventario_producto foreign key (Producto_Id) references producto(Producto_Id);
+    alter table contenido_inventario add constraint fk_contenidoinventario_inventario foreign key (inventario_id) references inventario(inventario_id);
+    alter table contenido_inventario add constraint fk_contenidoinventario_producto foreign key (producto_id) references producto(producto_id);
 
 ### LLAVES FORANEAS DATOS ANTIGUOS
 
-    alter table antiguo_producto add constraint fk_antiguo_producto_talla foreign key(Talla_Id) references talla(Talla_Id);
+    alter table antiguo_producto add constraint fk_antiguo_producto_talla foreign key(talla_id) references talla(talla_id);
 
-    alter table antiguo_contenido_Inventario add constraint fk_antiguo_contenido_inventario_inventario foreign key (Inventario_Id) references inventario(Inventario_Id);
-    alter table antiguo_contenido_Inventario add constraint fk_antiguo_contenido_inventario_producto foreign key (Producto_Id) references producto(Producto_Id);
+    alter table antiguo_contenido_inventario add constraint fk_antiguo_contenido_inventario_inventario foreign key (inventario_id) references inventario(inventario_id);
+    alter table antiguo_contenido_inventario add constraint fk_antiguo_contenido_inventario_producto foreign key (producto_id) references producto(producto_id);
 
 ### DATOS
 
@@ -108,18 +108,18 @@ use real_shoes;
         (59,40),
         (59,41);
 
-    ### DATOS PRODUCTO
-    /* insert into producto(tipo,Marca,Coleccion_temporada,genero,Valor_Compra,Valor_Venta,talla_id) values
+    ### DATOS producto
+    /* insert into producto(tipo,marca,coleccion_temporada,genero,valor_compra,valor_venta,talla_id) values
         ('Zapatilla','Adidas','Verano','Femenino',1,2,2),
         ('Tenis','Brahma','Verano','Masculino',1,2,3); */
 
-    ### DATOS INVENTARIO
-    insert into inventario(Sede_Id) values
+    ### DATOS inventario
+    insert into inventario(sede_id) values
         (1),
         (2);
     
 ### TRIGGERS
-    /* TRIGGER QUE AÑADE AL CONTENIDO_INVENTARIO UN NUEVO PRODUCTO REGISTRADO CON STOCK 0 */
+    /* TRIGGER QUE AÑADE AL contenido_inventario UN NUEVO producto REGISTRADO CON STOCK 0 */
         DROP TRIGGER if exists after_añadir_producto_insert_contenido_inventario;
 
         DELIMITER //
@@ -139,8 +139,8 @@ use real_shoes;
 
         DELIMITER ;
     
-    /* TRIGGER QUE INSERTA DATOS ANTIGUOS A LA TABLA ANTIGUO_PRODUCTO, DESPUES DE UNA ACTUALIZACION 
-    EN LA TABLA PRODUCTO */
+    /* TRIGGER QUE INSERTA DATOS ANTIGUOS A LA TABLA ANTIGUO_producto, DESPUES DE UNA ACTUALIZACION 
+    EN LA TABLA producto */
 
         DROP TRIGGER if exists after_update_producto
 
@@ -150,15 +150,15 @@ use real_shoes;
         AFTER UPDATE ON producto
         FOR EACH ROW
             BEGIN 
-                INSERT INTO antiguo_producto (Producto_id,Tipo,Marca,Coleccion_Temporada,Genero,Valor_Compra,Valor_Venta,Talla_Id,fecha_creacion,ultima_modificacion)
-                    values(old.Producto_id,old.Tipo,Marca,old.Coleccion_Temporada,old.Genero,old.Valor_Compra,old.Valor_Venta,old.Talla_Id,old.fecha_creacion,now());
+                INSERT INTO antiguo_producto (producto_id,tipo,marca,coleccion_temporada,genero,valor_compra,valor_venta,talla_id,fecha_creacion,ultima_modificacion)
+                    values(old.producto_id,old.tipo,marca,old.coleccion_temporada,old.genero,old.valor_compra,old.valor_venta,old.talla_id,old.fecha_creacion,now());
             END;
             //
 
         DELIMITER ;   
 
-    /* TRIGGER QUE INSERTA DATOS ANTIGUOS A LA TABLA ANTIGUO_CONTENIDO_INVENTARIO, DESPUES DE UNA ACTUALIZACION
-    EN LA TABLA CONTENIDO_INVENTARIO */     
+    /* TRIGGER QUE INSERTA DATOS ANTIGUOS A LA TABLA ANTIGUO_contenido_inventario, DESPUES DE UNA ACTUALIZACION
+    EN LA TABLA contenido_inventario */     
 
         DROP TRIGGER if exists after_update_contenido_inventario
 
@@ -168,7 +168,7 @@ use real_shoes;
         AFTER UPDATE ON contenido_inventario
         FOR EACH ROW
             BEGIN
-                INSERT INTO antiguo_contenido_Inventario(inventario_id,producto_id,stock,fecha_creacion,ultima_modificacion)
+                INSERT INTO antiguo_contenido_inventario(inventario_id,producto_id,stock,fecha_creacion,ultima_modificacion)
                     values(old.inventario_id,old.producto_id,old.stock,old.fecha_creacion, now());
             END;
             //
@@ -177,12 +177,12 @@ use real_shoes;
     
 
 ### VISTAS
-    /* VISTA QUE MUESTRA LOS PRODUCTOS CON STOCK BAJO */
+    /* VISTA QUE MUESTRA LOS productoS CON STOCK BAJO */
         CREATE OR REPLACE VIEW stock_bajo_vw AS 
-         SELECT c.Inventario_Id AS Codigo_Inventario,c.Producto_id AS Codigo_producto, 
-                    CONCAT(p.tipo," ", p.marca," ", p.Coleccion_temporada," ", p.genero) AS producto,
+         SELECT c.inventario_id AS Codigo_inventario,c.producto_id AS Codigo_producto, 
+                    CONCAT(p.tipo," ", p.marca," ", p.coleccion_temporada," ", p.genero) AS producto,
                         pa.nombre AS Origen, t.numero AS Talla, c.stock  
-                            FROM contenido_Inventario AS c
+                            FROM contenido_inventario AS c
                                 INNER JOIN producto AS p ON
                                  c.producto_id = p.producto_id
                                     INNER JOIN talla AS t ON
@@ -190,12 +190,12 @@ use real_shoes;
                                             INNER JOIN pais AS pa ON
                                                 pa.pais_id = t.pais_id
                                                     WHERE c.stock <= 3 AND c.stock > 0;
-    /* VISTA QUE MUESTRA LOS PRODUCTOS CON STOCK 0 */
+    /* VISTA QUE MUESTRA LOS productoS CON STOCK 0 */
         CREATE OR REPLACE VIEW stock_cero_vw AS 
-         SELECT c.Inventario_Id AS Codigo_Inventario,c.Producto_id AS Codigo_producto, 
-                    CONCAT(p.tipo," ", p.marca," ", p.Coleccion_temporada," ", p.genero) AS producto,
+         SELECT c.inventario_id AS Codigo_inventario,c.producto_id AS Codigo_producto, 
+                    CONCAT(p.tipo," ", p.marca," ", p.coleccion_temporada," ", p.genero) AS producto,
                         pa.nombre AS Origen, t.numero AS Talla, c.stock  
-                            FROM contenido_Inventario AS c
+                            FROM contenido_inventario AS c
                                 INNER JOIN producto AS p ON
                                  c.producto_id = p.producto_id
                                     INNER JOIN talla AS t ON
@@ -203,10 +203,10 @@ use real_shoes;
                                             INNER JOIN pais AS pa ON
                                                 pa.pais_id = t.pais_id
                                                  WHERE c.stock = 0;
-    /* VISTA QUE MUESTRA LOS PRODUCTOS QUE CAMBIARON DE PRECIO */
+    /* VISTA QUE MUESTRA LOS productoS QUE CAMBIARON DE PRECIO */
         CREATE OR REPLACE VIEW variacion_precios_vw AS
-            SELECT p.producto_id, CONCAT(p.tipo," ", p.marca," ", p.Coleccion_temporada," ", p.genero) AS producto,
-                    a.Valor_Venta AS Precio_Anterior, p.Valor_Venta AS Precio_Actual, 
+            SELECT p.producto_id, CONCAT(p.tipo," ", p.marca," ", p.coleccion_temporada," ", p.genero) AS producto,
+                    a.valor_venta AS Precio_Anterior, p.valor_venta AS Precio_Actual, 
                         a.ultima_modificacion AS Fecha_Modificacion 
                             FROM producto AS p
                                 INNER JOIN antiguo_producto AS a ON
