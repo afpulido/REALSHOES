@@ -115,8 +115,7 @@
                         $dato['tipo_doc_id'] = $_POST['tipodocumento'];
                         $dato['tipo_persona_id'] = $_POST['tipousuario'];
                         $dato['rol_id'] = $_POST['rolusuario'];
-                        $dato['ultima_modificacion'] = now();
-
+                        $dato['ultima_modificacion'] = ['now()'];
                     ?>
 
             </div>

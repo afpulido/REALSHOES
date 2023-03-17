@@ -49,7 +49,7 @@
             <?php
             if(isset($_REQUEST['updateid'])){
                 $id=$_REQUEST['updateid'];
-                $seleccionar = "SELECT * FROM persona where idpersona=$id";
+                $seleccionar = "SELECT * FROM persona where persona_id=$id";
                 $resultado = mysqli_query($conectar, $seleccionar);
                 $dato = $resultado->fetch_assoc();
             }
@@ -63,12 +63,12 @@
                         <select class='form-control' name='tipodocumento' id='' required>
                         <?php
                         /* Consulta de para llenar automaticamente la lista desplegable*/
-                            $consulta       = "SELECT idtd,nombre_td FROM tipo_doc";
+                            $consulta       = "SELECT tipo_doc_id,nombre FROM tipo_doc";
                             $resultado      = mysqli_query($conectar, $consulta) or die(mysqli_connect_error());
                         
                             while ($reg = mysqli_fetch_array($resultado)) {
                             ?>
-                                <option value='<?php echo $reg['idtd']?>'><?php echo $reg['nombre_td']?></option>
+                                <option value='<?php echo $reg['tipo_doc_id']?>'><?php echo $reg['nombre']?></option>
                             <?php
                             }
                             
@@ -81,12 +81,12 @@
                         <select class='form-control' name='tipousuario' id='' required>
                         <?php
                             /* Consulta de para llenar automaticamente la lista desplegable*/
-                            $consulta       = "SELECT id_tp,nombretp FROM tipo_persona";
+                            $consulta       = "SELECT tipo_persona_id,nombre FROM tipo_persona";
                             $resultado      = mysqli_query($conectar, $consulta) or die(mysqli_connect_error());
                         
                             while ($reg = mysqli_fetch_array($resultado)) {
                             ?>
-                                <option value='<?php echo $reg['id_tp']?>'><?php echo $reg['nombretp']?></option>
+                                <option value='<?php echo $reg['tipo_persona_id']?>'><?php echo $reg['nombre']?></option>
                             <?php
                             }
                           
@@ -96,7 +96,7 @@
                     <div class='input-group mb-3'>
                         <span class='input-group-text'>Ingrese documento de identidad o NIT</span>
                         <!-- Con los datos llamados de la base de datos creo un valor .. value ="llamo php imprimo con echo y coloco el array con el campo especifico de la base de datos"-->                      
-                        <input class='form-control' type='number' name='documento' value="<?php echo $dato['idpersona']?>" id='' required>
+                        <input class='form-control' type='number' name='documento' value="<?php echo $dato['persona_id']?>" id='' required>
                     </div>
                     <div class='input-group mb-3'>
                         <span class='input-group-text'>Escriba su nombre completo o razón social</span>
@@ -125,12 +125,12 @@
 
                         <?php
                             /* Consulta de para llenar automaticamente la lista desplegable*/
-                            $consulta       = "SELECT idrol,nombre_rol FROM rol";
+                            $consulta       = "SELECT rol_id,nombre FROM rol";
                             $resultado      = mysqli_query($conectar, $consulta) or die(mysqli_connect_error());
                     
                             while ($reg = mysqli_fetch_array($resultado)) {
                             ?>
-                                <option value='<?php echo $reg['idrol']?>'><?php echo $reg['nombre_rol']?></option>
+                                <option value='<?php echo $reg['rol_id']?>'><?php echo $reg['nombre']?></option>
                             <?php
                             }
                             
