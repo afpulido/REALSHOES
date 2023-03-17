@@ -403,19 +403,19 @@ use real_shoes;
         ('Natural', 'Todos los individuos de la especie humana.'),
         ('Jurídica', 'Org. formada por varias personas físicas.');
 
-    insert into persona(persona_id,nombre,apellidos,usuario,contraseña,email,tipo_doc_id,tipo_persona_id,rol_id) values 
-        (1022968811,'Omar Fernando','Bohorquez Preciado','ofbohorquez1','1234','ofbohorquez1@misena.edu.co',1,1,1),
-        (1023976365,'Andres Felipe','Pulido Rios','andfpulido1','1234','andfpulido1@misena.edu.co',1,1,2),
-        (1013594945,'Diego Alexander','Diaz Triana','diego.diaz949','1234','diego.diaz949@misena.edu.co',1,1,2),
-        (1012453759,'Deiver Giovanny','Morales Duarte','deiver.morales','1234','deiver.morales@misena.edu.co',1,1,2),
-        (1022972233,'Jaime','Olaya Hernandez','jolaya3','1234','jolaya3@misena.edu.co',1,1,2);
+    insert into persona(persona_id,nombre,apellidos,direccion,usuario,contraseña,telefono,email,tipo_doc_id,tipo_persona_id,rol_id) values 
+        (1022968811,'Omar Fernando','Bohorquez Preciado','Calle 5','ofbohorquez1','1234','749-47-38792','ofbohorquez1@misena.edu.co',1,1,1),
+        (1023976365,'Andres Felipe','Pulido Rios','Calle 6','andfpulido1','1234','657-05-22070','andfpulido1@misena.edu.co',1,1,2),
+        (1013594945,'Diego Alexander','Diaz Triana','Calle 7','diego.diaz949','1234','440-26-99791','diego.diaz949@misena.edu.co',1,1,2),
+        (1012453759,'Deiver Giovanny','Morales Duarte','Calle 8','deiver.morales','1234','932-90-80481','deiver.morales@misena.edu.co',1,1,2),
+        (1022972233,'Jaime','Olaya Hernandez','Calle 9','jolaya3','1234','261-24-13860','jolaya3@misena.edu.co',1,1,2);
 
-    insert into persona(persona_id,nombre,apellidos,usuario,contraseña,email,tipo_doc_id,tipo_persona_id,rol_id) values 
-        (1,'Gerente1','Prueba1','gerenteprueba','1234','gerenteprueba@hotmail.com',1,1,3),
-        (2,'Gerente2','Prueba2','gerente2prueba','1234','gerente2prueba@hotmail.com',1,1,3),
-        (3,'Operador1','Prueba1','operadorprueba','1234','operadorprueba@hotmail.com',1,1,4),
-        (4,'Operador2','Prueba2','operador2prueba','1234','operador2prueba@hotmail.com',1,1,4),
-        (5,'Cliente1','Prueba1','clienteprueba','1234','clienteprueba@hotmail.com',1,2,5);
+    insert into persona(persona_id,nombre,apellidos,direccion,usuario,contraseña,telefono,email,tipo_doc_id,tipo_persona_id,rol_id) values 
+        (1,'Gerente1','Prueba1','Calle 1','gerenteprueba','1234','777-89-97313','gerenteprueba@hotmail.com',1,1,3),
+        (2,'Gerente2','Prueba2','Avenida Siempre viva','gerente2prueba','1234','189-97-48657','gerente2prueba@hotmail.com',1,1,3),
+        (3,'Operador1','Prueba1','Calle 2','operadorprueba','1234','963-86-36768','operadorprueba@hotmail.com',1,1,4),
+        (4,'Operador2','Prueba2','Calle 3','operador2prueba','1234','143-05-97333','operador2prueba@hotmail.com',1,1,4),
+        (5,'Cliente1','Prueba1','Calle 4','clienteprueba','1234','805-66-30405','clienteprueba@hotmail.com',1,2,5);
 
     insert into sede(nombre,ciudad_id) values
         ('Restrepo',4),

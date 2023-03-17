@@ -5,14 +5,9 @@ use real_shoes;
         sede_compra_id int primary key AUTO_INCREMENT, 
         Sede_id int, 
         producto_id int,
-        tipo varchar(45),
-        marca varchar(45),
-        coleccion_temporada varchar(45),
-        genero varchar(45),
         valor_compra float,
-        talla_id int,
         cantidad int,
-        estado SET('SELECCIONADO','FACTURADO') default'SELECCIONADO',
+        estado SET('SELECCIONADO','CANCELADO','FACTURADO') default'SELECCIONADO',
         fecha_creacion datetime default current_timestamp,
         ultima_modificacion datetime default current_timestamp,
         fecha_eliminacion datetime 
@@ -94,7 +89,7 @@ use real_shoes;
         DELIMITER ;
     
     /* TRIGGER QUE DESPUES DE UNA COMPRA ACTUALIZA EL INVENTARIO */  
-        /* DROP TRIGGER if exists after_compra_update_create_inventario;
+     /*    DROP TRIGGER if exists after_compra_update_create_inventario;
 
         DELIMITER //
         
