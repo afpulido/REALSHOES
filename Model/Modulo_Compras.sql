@@ -44,6 +44,27 @@ use real_shoes;
         fecha_creacion DATETIME default current_timestamp,
         fecha_eliminacion datetime
     );
+
+### TABLAS CON DATOS ELIMINADOS
+    ### TABLA eliminado_factura_compra, ALMACENA LAS FACTURAS DE COMPRA CANCELADAS.
+    create table eliminado_factura_compra(
+        factura_compra_id int primary key auto_increment,
+        descuento float,
+        impuesto float,
+        pedido_compra_id int,
+        fecha_creacion datetime default current_timestamp,
+        ultima_modificacion datetime default current_timestamp,
+        fecha_eliminacion datetime
+    );
+
+    ### TABLA VENTA, ALMACENA LAS VENTAS REALIZADAS.
+    create table eliminado_compra(
+        compra_Id int primary key auto_increment,
+        factura_compra_id int,
+        fecha_creacion DATETIME default current_timestamp,
+        fecha_eliminacion datetime
+    );
+
 ### LLAVES FORANEAS
     alter table sede_compra add constraint fk_sede_compra_persona foreign key (sede_id) references sede(sede_id);
     
@@ -56,8 +77,8 @@ use real_shoes;
 
 ### DATOS
     ### DATOS SEDE_COMPRA 
-    /* INSERT INTO SEDE_COMPRA (Sede_id,producto_id,tipo,marca,coleccion_temporada,genero,valor_compra,cantidad)
-        values (1,1,'Zapatilla','Adidas','Verano','Femenino',20000,10); */
+    /* INSERT INTO SEDE_COMPRA (Sede_id,producto_id,valor_compra,cantidad)
+        values (1,1,20000,10); */
 
     ### DATOS FACTURA_COMPRA
     /* insert into factura_compra(pedido_compra_id)values(1); */
@@ -89,34 +110,48 @@ use real_shoes;
         DELIMITER ;
     
     /* TRIGGER QUE DESPUES DE UNA COMPRA ACTUALIZA EL INVENTARIO */  
-     /*    DROP TRIGGER if exists after_compra_update_create_inventario;
+        DROP TRIGGER if exists after_compra_update_inventario;
 
         DELIMITER //
         
-        CREATE TRIGGER after_compra_update_create_inventario
-        AFTER INSERT ON factura_compra
+        CREATE TRIGGER after_compra_update_inventario
+        AFTER UPDATE ON sede_compra
         FOR EACH ROW
         BEGIN 
-            SELECT COUNT(producto_id) AS Validador 
-                FROM producto 
-                    WHERE producto_id = @producto_id;
-
-            IF Validador >= 1 THEN
+            SET @inventario_id = (SELECT inventario_id FROM inventario AS i
+                                            INNER JOIN sede_compra AS sc ON
+                                                i.sede_id = sc.sede_id  
+                                                    ORDER BY sc.ultima_modificacion DESC
+                                                        LIMIT 1);
+            
+            SET @producto_id =  (SELECT producto_id 
+                                    FROM sede_compra AS sc 
+                                        ORDER BY sc.ultima_modificacion DESC
+                                            LIMIT 1); 
+            SET @cantidad = (SELECT cantidad 
+                                FROM sede_compra AS sc
+                                    WHERE sc.producto_id = @producto_id
+                                        ORDER BY sc.ultima_modificacion 
+                                            DESC LIMIT 1);
+            IF new.estado = 'FACTURADO' THEN
                 UPDATE contenido_inventario set stock = stock + @cantidad 
                     WHERE producto_id = @producto_id 
                         AND inventario_id = @inventario_id;
             ELSE 
-                INSERT INTO producto(producto_id,)
+                UPDATE contenido_inventario set stock = stock - @cantidad 
+                    WHERE producto_id = @producto_id 
+                        AND inventario_id = @inventario_id;
+            END IF;
         END;
         //
 
-        DELIMITER ; */
+        DELIMITER ;
     /* TRIGGER PARA REGISTRAR UNA COMPRA DESPUES DE REALIZAR FACTURA_COMPRA */
-        DROP TRIGGER if exists after_compra_insertar_registro_venta;
+        DROP TRIGGER if exists after_compra_insertar_registro_compra;
 
         DELIMITER //
 
-        CREATE TRIGGER after_compra_insertar_registro_venta
+        CREATE TRIGGER after_compra_insertar_registro_compra
         AFTER INSERT ON factura_compra    
         FOR EACH ROW 
         BEGIN
@@ -183,6 +218,66 @@ use real_shoes;
                                                 ORDER BY pedido_compra_id DESC 
                                                     LIMIT 1);
             END IF;   
+        END;
+        //
+
+        DELIMITER ;
+
+    /* TRIGGER QUE AL ELIMINAR UNA FACTURA_COMPRA, ALMACENA LA FACTURA CANCELADA */
+        DROP TRIGGER if exists after_delete_factura_compra
+
+        DELIMITER //
+
+        CREATE TRIGGER after_delete_factura_compra
+        AFTER DELETE ON factura_compra
+        FOR EACH ROW
+        BEGIN
+            INSERT INTO eliminado_factura_compra 
+                values(old.factura_compra_id,old.descuento,old.impuesto,old.pedido_compra_id,old.fecha_creacion,old.ultima_modificacion,now());
+           
+            DELETE FROM compra
+                WHERE factura_compra_id = old.factura_compra_id;
+        END;
+        //
+
+        DELIMITER ;
+
+    /* TRIGGER QUE AL CANCELAR UNA VENTA, ALMACENA LA VENTA CANCELADA */
+        DROP TRIGGER if exists after_delete_compra
+
+        DELIMITER //
+
+        CREATE TRIGGER after_delete_compra
+        AFTER DELETE ON compra
+        FOR EACH ROW
+        BEGIN
+            INSERT INTO eliminado_compra 
+                values(old.compra_id,old.factura_compra_id,old.fecha_creacion,now());
+        END;
+        //
+
+        DELIMITER ;
+    
+    /* TRIGGER QUE ACTUALIZA EL estado DE LOS PRODUCTOS FACTURADOS A CANCELADOS AL ELIMINAR UNA FACTURA */
+
+        DROP TRIGGER if exists after_eliminar_factura_compra_retornar_inventario
+
+        DELIMITER //
+        CREATE TRIGGER after_eliminar_factura_compra_retornar_inventario
+        AFTER INSERT ON eliminado_factura_compra
+        FOR EACH ROW
+        BEGIN
+            SET @sede_id = (SELECT sede_Id FROM sede_compra AS sc
+                                INNER JOIN pedido_compra AS pc ON
+                                    sc.sede_compra_id = pc.sede_compra_id
+                                        INNER JOIN eliminado_factura_compra AS efc ON
+                                            pc.pedido_compra_id = efc.pedido_compra_id
+                                                ORDER BY fc.fecha_creacion DESC
+                                                    LIMIT 1);
+            UPDATE sede_compra SET estado = 'CANCELADO', 
+                                        ultima_modificacion = now()
+                                            WHERE sede_id = @sede_id 
+                                                AND estado = 'FACTURADO';
         END;
         //
 
