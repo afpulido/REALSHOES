@@ -66,14 +66,21 @@ use real_shoes;
     );
 
 ### LLAVES FORANEAS
-    alter table sede_compra add constraint fk_sede_compra_persona foreign key (sede_id) references sede(sede_id);
-    
+    alter table sede_compra add constraint fk_sede_compra_sede foreign key (sede_id) references sede(sede_id);
+    alter table sede_compra add constraint fk_sede_compra_producto foreign key (producto_id) references producto(producto_id);
+
     alter table pedido_compra add constraint fk_Pedido_compra_metodo_pago foreign key(metodo_pago_id) references metodo_pago(metodo_pago_id);
     alter table pedido_compra add constraint fk_Pedido_compra_sede_compra foreign key(sede_compra_id) references sede_compra(sede_compra_id);
     
     alter table factura_compra add constraint fk_factura_compra_Pedido_compra foreign key(pedido_compra_id) references pedido_compra(pedido_compra_id);
 
     alter table compra add constraint fk_compra_factura_compra foreign key (factura_compra_id) references factura_compra(factura_compra_id);
+
+### LLAVES FORANEAS DATOS ELIMINADOS
+    alter table eliminado_factura_compra add constraint fk_eliminado_pedido_compra foreign key(pedido_compra_id) references pedido_compra(pedido_compra_id);
+
+    alter table eliminado_compra add constraint fk_eliminado_compra_factura foreign key (factura_compra_id) references factura_compra(factura_compra_id);
+
 
 ### DATOS
     ### DATOS SEDE_COMPRA 

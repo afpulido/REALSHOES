@@ -53,8 +53,7 @@
 
     -- TABLA persona, ALMACENA LOS DATOS DE LOS USUARIOS.
     create table persona(
-        id int primary key IDENTITY(1,1),
-        persona_id int NOT NULL, 
+        persona_id int primary key NOT NULL, 
         nombre varchar(45),
         apellidos varchar(45),
         direccion varchar(45),

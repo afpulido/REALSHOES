@@ -1,4 +1,3 @@
-use real_shoes;
 --- TABLAS
     --- TABLA TALLA, ALMACENA LAS TALLAS Y SU ORIGEN. 
     create table talla(
