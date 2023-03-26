@@ -11,7 +11,7 @@
 </head>
 <body>
     <!--inicio Header  -->
-    <?php include "includes/header.php"?>    
+        <?php include "includes/header.php"?>    
     <!--Fin Header  -->
     
     <!--inicio menu  -->
@@ -21,12 +21,47 @@
     <!-- Inicio Contenido-->
     <div class="main">
         <main>
-            <!-- inicio productos-->
-            <div id="productos" class="">
-                <img src="../IMG/DAMA1.jpg" height="300"><br>
-                <img src="../IMG/DAMA2.jpg" height="300"><br>
+        <!-- inicio productos-->
+            <div class="container-items">
+                <div class="item">
+                    <figure>
+                        <img src="../IMG/DAMA1.jpg" height="300" alt="producto"><br>
+                    </figure>
+                    <div class="info-product">
+                        <h2>adidas</h2>
+                        <p>Cuero alta calidad cosido reforzado color vino tinto</p>
+                        <p class="price">$150000</p>
+                        <button>Añadir</button>
+                    </div>
+                </div>        
+            </div>   
 
+            <div class="container-items">
+                <div class="item">
+                    <figure>
+                        <img src="../IMG/DAMA2.jpg" height="300" alt="producto"><br>
+                    </figure>
+                    <div class="info-product">
+                        <h2>Marca</h2>
+                        <p>Cuero alta calidad cosido reforzado color vino tinto</p>
+                        <p class="price">$150000</p>
+                        <button>Añadir</button>
+                    </div>    
+                </div>
             </div>
+            <div class="container-items">
+                <div class="item">
+                    <figure>
+                        <img src="../IMG/DAMA3.jpg" height="300" alt="producto"><br>
+                    </figure>
+                    <div class="info-product">
+                        <h2>Marca</h2>
+                        <p>Cuero alta calidad cosido reforzado color vino tinto</p>
+                        <p class="price">$150000</p>
+                        <button>Añadir</button>
+                    </div>
+                </div>
+            </div> 
             <!-- fin promocion2-->
         </main>
     </div>
