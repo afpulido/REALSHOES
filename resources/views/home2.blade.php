@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--  -->
     <!-- CSS only -->
-    <?php include "includes/cdnstop copy.php"?>  
+    <?php require "../../View/Cliente/includes/cdnstop copy.php"?>  
     <title>Home</title>
 </head>
 <body>
     <!--inicio Header  -->
-    <?php include "includes/header.php"?>    
+    <?php include "../../View/Cliente/includes/header.php"?>    
     <!--Fin Header  -->
     
     <!--inicio menu  -->

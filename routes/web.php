@@ -17,5 +17,5 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', function (){
-    return view('home');
+    return view('home2');
 })->name('home'); // colocar nombre a la ruta
