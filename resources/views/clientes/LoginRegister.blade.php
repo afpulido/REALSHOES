@@ -1,23 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--  -->
-    <!-- CSS only -->
-    <?php include "includes/cdnstop.php"?>  
-    <title>Home</title>
-</head>
-<body>
-    <!--inicio Header  -->
-    <?php include "includes/header.php"?>    
-    <!--Fin Header  -->
-    
-    <!--inicio menu  -->
-     <?php include "includes/nav.php"?>   
-    <!--Fin menu  -->
+@extends('layout')
 
+@section('titulo', 'Inicio')
+
+
+@section('header')
+    <h1>Header</h1>
+@endsection
+
+@section('main')
+    <h1>main</h1>
     <!-- Inicio Contenido-->
     <div class="main">
         <main>
@@ -50,17 +41,15 @@
         </main>
     </div>
     <!-- Fin Contenido-->
+@endsection
 
-    <!-- Inicio footer -->
-    <?php include "includes/footer.php"?> 
-    <!-- fin footer -->
+@section('footer')
+    <h1>footer</h1>
+@endsection
 
-<!-- JavaScript Bundle with Popper -->
-<?php include "includes/cdnsbot.php"?> 
 
-</body>
-</html>
 
+    
 
 
 

@@ -1,33 +1,18 @@
 <?php
-include ('..\nowarning.php');
-
-//Session para iniciar sesion
 session_start();
  
-//include conexion a base de datos
-include "../../model/conexion.php";
 ?>
+@extends('layout')
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Boostrap y CSS, JS etc-->
-    <?php include "includes/cdnstop.php";?>
-  
-    <title>Inicio Sesión</title>
-</head>
+@section('titulo', 'Inicio')
 
-<body>
-<!--inicio Header  -->
-<?php include "includes/header.php"?>    
-    <!--Fin Header  -->
-    
-    <!--inicio menu  -->
-     <?php include "includes/nav.php"?>   
-    <!--Fin menu  -->
+
+@section('header')
+    <h1>Header</h1>
+@endsection
+
+@section('main')
+    <h1>main</h1>
 
     <!-- Inicio Contenido-->
     <div class="main"> 
@@ -61,16 +46,24 @@ include "../../model/conexion.php";
     </div>
     <!-- Fin Contenido-->
 
-    <!-- Inicio footer -->
-    <?php include "includes/footer.php"?> 
-    <!-- fin footer -->
 
-<!-- JavaScript Bundle with Popper -->
-<?php include "includes/cdnsbot.php"?> 
+
+
+
+
+
+
+
+
+@endsection
+
+@section('footer')
+    <h1>footer</h1>
+@endsection
 
     
-</body>
-</html>
+
+
      
 
 

@@ -8,7 +8,7 @@
 @endsection
 
 @section('main')
-    <h1>main</h1>
+    <h1>CLientes</h1>
 @endsection
 
 @section('footer')

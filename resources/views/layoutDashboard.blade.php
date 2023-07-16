@@ -7,11 +7,11 @@
     <title>@yield('titulo')</title>
 </head> 
 <body>
-    @include('partials.clienteheader')
+    @include('partials.dashheader')
     @yield('header')
-    @include('partials.clientenav')
+    @include('partials.dashnav')
     @yield('main')
     @yield('footer')
-    @include('partials.clientefooter')
+    @include('partials.dashfooter')
 </body>
 </html>
