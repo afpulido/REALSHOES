@@ -6,7 +6,7 @@ if (isset($_GET['activeid'])){
     $id=$_GET['activeid'];
 
     if($id!=null){
-        $consulta       = "SELECT fecha_eliminacion FROM persona WHERE idpersona=$id";
+        $consulta       = "SELECT fecha_eliminacion FROM persona WHERE persona_id=$id";
         $resultado      = mysqli_query($conectar, $consulta) or die(mysqli_connect_error());
         $fila          = mysqli_fetch_assoc($resultado);
 
@@ -14,7 +14,7 @@ if (isset($_GET['activeid'])){
             /**Desactivar un usuario */
             $desactivar = "UPDATE persona
                        SET fecha_eliminacion = now()
-                       WHERE  idpersona = $id";
+                       WHERE  persona_id = $id";
 
             if($conectar->query($desactivar) ===TRUE){
             echo "<script>alert('Los datos del usuario han sido desactivados correctamente')
@@ -28,7 +28,7 @@ if (isset($_GET['activeid'])){
             /**Activar un usuario */
             $activar = "UPDATE persona
                        SET fecha_eliminacion = null
-                       WHERE  idpersona = $id";
+                       WHERE  persona_id = $id";
 
             if($conectar->query($activar) ===TRUE){
             echo "<script>alert('Los datos del usuario han sido activados correctamente')

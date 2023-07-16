@@ -5,7 +5,7 @@ if (isset($_GET['deleteid']))
 
     $id=$_GET['deleteid'];
 
-   $eliminar = "DELETE FROM  persona WHERE  idpersona = $id";
+   $eliminar = "DELETE FROM  persona WHERE  persona_id = $id";
 
 if($conectar->query($eliminar) ===TRUE){
     echo "<script>alert('Los datos del usuario han sido Eliminados del Sistema')

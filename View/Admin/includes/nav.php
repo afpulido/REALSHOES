@@ -15,6 +15,9 @@
                 <li class="nav-item">
                 <a class="nav-link" href="RegisterSede.php" tabindex="-1" aria-disabled="true">Sedes</a>
                 </li>
+                <li class="nav-item">
+                <a class="nav-link" href="../cliente/logout.php" tabindex="-1" aria-disabled="true">Cerrar Sesion</a>
+                </li>
                 <!---
                 <li class="nav-item">
                 <a class="nav-link disabble" href="#">Proveedores</a>

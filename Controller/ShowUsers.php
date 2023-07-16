@@ -33,16 +33,16 @@
             /** llenado de la tabla $reg tiene los datos de la consulta */
             while ($reg = mysqli_fetch_array($resultado)) {
             echo "<tbody>";
-                $idp = $reg['idpersona'];
+                $idp = $reg['persona_id'];
                 $n = $reg['nombre'];
                 $ap = $reg['apellidos'];
                 $dir = $reg['direccion'];
                 $usu = $reg['usuario'];
                 $tel = $reg['telefono'];
                 $mail = $reg['email'];
-                $tdp = $reg['idtipodocp'];
-                $tp = $reg['idtipopersona'];
-                $rol = $reg['idrolp'];
+                $tdp = $reg['tipo_doc_id'];
+                $tp = $reg['tipo_persona_id'];
+                $rol = $reg['rol_id'];
                 $fc = $reg['fecha_creacion'];
                 $fm = $reg['ultima_modificacion'];
                        

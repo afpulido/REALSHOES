@@ -13,7 +13,7 @@
     <?php
         $userid = $_POST['documento'];
         //var_dump($userid);
-        $seleccionar = "SELECT * FROM persona WHERE idpersona=$userid";
+        $seleccionar = "SELECT * FROM persona WHERE persona_id=$userid";
         $resultado = mysqli_query($conectar, $seleccionar);
         $dato = $resultado->fetch_assoc();
         //var_dump($dato);
@@ -55,10 +55,11 @@
                     <div class='input-group mb-3'>
                         <span class='input-group-text'>Elija el tipo de documento</span>
                         <select class='form-control' name='tipodocumento' id='' required>
-                            <option value='1'>Tarjeta de identidad</option>
-                            <option value='2'>Cédula de ciudadanía</option>
-                            <option value='3'>Cédula de extranjería</option>
-                            <option value='4'>Registro civil de nacimiento</option>
+                            <option value='1'>Cédula Ciudadanía</option>
+                            <option value='2'>Tarjeta Identidad</option>
+                            <option value='3'>Cédula Extranjería</option>
+                            <option value='4'>Permiso Especial Permanencia</option>
+                            <option value='5'>Registro Civil</option>
                         </select>
                     </div>
                     <div class='input-group mb-3'>
@@ -98,9 +99,12 @@
                     
                         <span class='input-group-text'>Rol de usuario</span>
                         <select class='form-control' name='rolusuario' id='' required>
-                            <option value='1'>Administrador</option>
-                            <option value='2'>Cliente</option>
-                            <option value='3'>Auxiliar administrativo</option>
+                            <option value='1'>Administrador_ARP</option>
+                            <option value='2'>Administrador_APM</option>
+                            <option value='3'>Gerente</option>
+                            <option value='4'>Operador</option>
+                            <option value='5'>Cliente</option>
+                            
                         </select>
                     </div>
                     <div class='input-group mb-3'>
@@ -108,11 +112,10 @@
                     </div>
                     </form>
                     <?php 
-                        $dato['idtipodocp'] = $_POST['tipodocumento'];
-                        $dato['idtipopersona'] = $_POST['tipousuario'];
-                        $dato['idrolp'] = $_POST['rolusuario'];
-                        $dato['ultima_modificacion'] = now();
-
+                        $dato['tipo_doc_id'] = $_POST['tipodocumento'];
+                        $dato['tipo_persona_id'] = $_POST['tipousuario'];
+                        $dato['rol_id'] = $_POST['rolusuario'];
+                        $dato['ultima_modificacion'] = ['now()'];
                     ?>
 
             </div>
