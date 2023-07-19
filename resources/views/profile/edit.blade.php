@@ -10,18 +10,21 @@
             <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
                 <div class="max-w-xl">
                     @include('profile.partials.update-profile-information-form')
+                    <!--llama plantilla de actualización de información de perfil-->
                 </div>
             </div>
 
             <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
                 <div class="max-w-xl">
                     @include('profile.partials.update-password-form')
+                    <!--llama plantilla de actualización de contraseña-->
                 </div>
             </div>
 
             <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
                 <div class="max-w-xl">
                     @include('profile.partials.delete-user-form')
+                    <!--llama plantilla de eliminación de cuenta-->
                 </div>
             </div>
         </div>
