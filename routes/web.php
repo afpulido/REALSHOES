@@ -20,19 +20,19 @@ Route::get('/', function () {
 });
 Route::get('/colecciones', function () {
     return view('/shop/colecciones');
-});
+})->name('gcolecciones');
 
 Route::get('/damas', function () {
     return view('/shop/damas');
-});
+})->name('gdamas');
 
 Route::get('/caballeros', function () {
     return view('/shop/caballeros');
-});
+})->name('gcaballeros');
 
 Route::get('/infantil', function () {
     return view('/shop/infantil');
-});
+})->name('ginfantil');
 
 
 /*
@@ -42,11 +42,6 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-
-
-/*
-*Ruta para modificar datos de perfil de usuario en dashboard
-*/
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -54,9 +49,20 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::get('/', function () {
+
+
+
+
+
+/*Route::get('/', function () {
     return view('welcome');
 })->middleware(['auth', 'verified'])->name('store');
+*/
+
+Route::get('/store', function () {
+    return view('welcome');
+})->middleware(['auth', 'verified'])->name('store');
+
 
 Route::get('/colecciones', function () {
     return view('/shop/colecciones');
