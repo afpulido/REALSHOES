@@ -19,13 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
-            $table->integer('persona_id')->nullable();;
-            $table->string('apellidos')->nullable();;
-            $table->string('direccion')->nullable();;
-            $table->integer('telefono')->nullable();;
-            $table->unsignedBigInteger('tipo_doc_id')->nullable();;
-            $table->unsignedBigInteger('rol_id')->nullable();;
-
+            $table->softDeletes();
         /**
          * ->nullable();=null
          * 

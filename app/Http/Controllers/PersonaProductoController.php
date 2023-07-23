@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Persona_producto;
 use App\Http\Requests\StorePersona_productoRequest;
 use App\Http\Requests\UpdatePersona_productoRequest;
+use App\Models\Persona;
 
 class PersonaProductoController extends Controller
 {
@@ -13,7 +14,7 @@ class PersonaProductoController extends Controller
      */
     public function index()
     {
-        //
+        return view('dashboard.users');
     }
 
     /**
@@ -21,7 +22,7 @@ class PersonaProductoController extends Controller
      */
     public function create()
     {
-        //
+        return view('users.create');
     }
 
     /**
@@ -29,7 +30,11 @@ class PersonaProductoController extends Controller
      */
     public function store(StorePersona_productoRequest $request)
     {
-        //
+        /* $persona = new Persona;
+
+        $persona->personas_id=$request->personas_id;
+
+        $persona->save(); */
     }
 
     /**
@@ -37,7 +42,9 @@ class PersonaProductoController extends Controller
      */
     public function show(Persona_producto $persona_producto)
     {
-        //
+        /* $persona = new Persona;
+
+        $persona = find::all(); */
     }
 
     /**

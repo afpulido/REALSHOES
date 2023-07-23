@@ -13,7 +13,18 @@ class RolController extends Controller
      */
     public function index()
     {
-        //
+        /* return view('profile.edit', [
+            'user' => $request->user(),
+        ]); 
+        
+        return view('dashboar.users')
+        */
+
+        
+
+        
+        
+
     }
 
     /**

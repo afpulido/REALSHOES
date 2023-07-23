@@ -18,42 +18,45 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+
 Route::get('/store', function () {
     return view('welcome');
 })->name('store');
 
 
-Route::get('/colecciones', function () {
-    return view('/shop/colecciones');
+Route::get('/store/collections', function () {
+    return view('/store/colecciones');
 })->name('colecciones');
 
-Route::get('/damas', function () {
-    return view('/shop/damas');
+Route::get('/store/ladies', function () {
+    return view('/store/damas');
 })->name('damas');
 
-Route::get('/caballeros', function () {
-    return view('/shop/caballeros');
+Route::get('/store/gentlemen', function () {
+    return view('/store/caballeros');
 })->name('caballeros');
 
-Route::get('/infantil', function () {
-    return view('/shop/infantil');
+Route::get('/store/childish', function () {
+    return view('/store/infantil');
 })->name('infantil');
-/* Route::get('/colecciones', function () {
-    return view('/shop/colecciones');
-})->name('gcolecciones');
 
-Route::get('/damas', function () {
-    return view('/shop/damas');
-})->name('gdamas');
+// Route::get('/colecciones', function () {
+ //    return view('/store/colecciones');
+ //})->name('gcolecciones');
 
-Route::get('/caballeros', function () {
-    return view('/shop/caballeros');
-})->name('gcaballeros');
+// Route::get('/damas', function () {
+//     return view('/store/damas');
+// })->name('gdamas');
 
-Route::get('/infantil', function () {
-    return view('/shop/infantil');
-})->name('ginfantil');
- */
+// Route::get('/caballeros', function () {
+//     return view('/store/caballeros');
+// })->name('gcaballeros');
+
+// Route::get('/infantil', function () {
+//     return view('/store/infantil');
+// })->name('ginfantil');
+
 
 /*
 *Ruta para acceder solo logueado a dashboard
@@ -63,9 +66,10 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/dashboard/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/dashboard/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/dashboard/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    ///Route::delete('/profile', [PersonaController::class, 'update'])->name('persona.update');
 });
 
 
@@ -78,52 +82,87 @@ Route::middleware('auth')->group(function () {
     return view('welcome');
 })->middleware(['auth', 'verified'])->name('store');
 */
-
+/*
 Route::get('/store', function () {
     return view('welcome');
-})->name('store');
+})->middleware(['auth', 'verified'])->name('store');
 
 
-Route::get('/colecciones', function () {
-    return view('/shop/colecciones');
-})->name('colecciones');
+Route::get('/store/collections', function () {
+    return view('/store/colecciones');
+})->middleware(['auth', 'verified'])->name('colecciones');
 
-Route::get('/damas', function () {
-    return view('/shop/damas');
-})->name('damas');
+Route::get('/store/ladies', function () {
+    return view('/store/damas');
+})->middleware(['auth', 'verified'])->name('damas');
 
-Route::get('/caballeros', function () {
-    return view('/shop/caballeros');
-})->name('caballeros');
+Route::get('/store/gentlemen', function () {
+    return view('/store/caballeros');
+})->middleware(['auth', 'verified'])->name('caballeros');
 
-Route::get('/infantil', function () {
-    return view('/shop/infantil');
-})->name('infantil');
+Route::get('/store/childish', function () {
+    return view('/store/infantil');
+})->middleware(['auth', 'verified'])->name('infantil'); */
 
 
 
-Route::get('/users', function () {
+Route::get('/dashboard/users', function () {
     return view('/dashboard/users');
-})->middleware(['auth', 'verified'])->name('users');
+})->middleware(['auth', 'verified'])->name('users.index');
 
-Route::get('/products', function () {
+
+
+Route::get('/dashboard/users/create', function () {
+    return view('/dashboard/users/create');
+})->middleware(['auth', 'verified'])->name('users.create');
+
+Route::get('/dashboard/users/create', function () {
+    return view('/dashboard/users/create');
+})->middleware(['auth', 'verified'])->name('users.create');
+
+Route::get('/dashboard/users/create', function () {
+    return view('/dashboard/users/create');
+})->middleware(['auth', 'verified'])->name('users.store');
+
+Route::get('/dashboard/users/create', function () {
+    return view('/dashboard/users/create');
+})->middleware(['auth', 'verified'])->name('users.show');
+
+Route::patch('/dashboard/users/create', function () {
+    return view('/dashboard/users/create');
+})->middleware(['auth', 'verified'])->name('users.update');
+
+
+
+
+Route::get('/dashboard/products', function () {
     return view('/dashboard/products');
-})->middleware(['auth', 'verified'])->name('products');
+})->middleware(['auth', 'verified'])->name('products.index');
 
-Route::get('/inventory', function () {
+Route::get('/dashboard/typedoc', function () {
+    return view('/dashboard/typedoc');
+})->middleware(['auth', 'verified'])->name('typedoc.index');
+Route::get('/dashboard/roles', function () {
+    return view('/dashboard/roles');
+})->middleware(['auth', 'verified'])->name('roles.index');
+
+
+Route::get('/dashboard/inventory', function () {
     return view('/dashboard/inventory');
-})->middleware(['auth', 'verified'])->name('inventory');
+})->middleware(['auth', 'verified'])->name('inventory.index');
 
-Route::get('/sales', function () {
+Route::get('/dashboard/sales', function () {
     return view('/dashboard/sales');
-})->middleware(['auth', 'verified'])->name('sales');
+})->middleware(['auth', 'verified'])->name('sales.index');
 
-Route::get('/shopping', function () {
+Route::get('/dashboard/shopping', function () {
     return view('/dashboard/shopping');
-})->middleware(['auth', 'verified'])->name('shopping');
+})->middleware(['auth', 'verified'])->name('shopping.index');
 
-Route::get('/reports', function () {
+
+Route::get('/dashboard/reports', function () {
     return view('/dashboard/reports');
-})->middleware(['auth', 'verified'])->name('reports');
+})->middleware(['auth', 'verified'])->name('reports.index');
+
 
 require __DIR__.'/auth.php';

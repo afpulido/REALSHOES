@@ -16,23 +16,29 @@
                     <x-nav-link :href="route('store')" :active="request()->routeIs('store')">
                         {{ __('Store') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('users')" :active="request()->routeIs('users')">
+                    <x-nav-link :href="route('users.index')" :active="request()->routeIs('users')">
                         {{ __('Users') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('products')" :active="request()->routeIs('products')">
+                    <x-nav-link :href="route('typedoc.index')" :active="request()->routeIs('products')">
+                        {{ __('Types Document') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('roles.index')" :active="request()->routeIs('products')">
+                        {{ __('Roles') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('products.index')" :active="request()->routeIs('products')">
                         {{ __('Products') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('inventory')" :active="request()->routeIs('inventory')">
+                    <x-nav-link :href="route('inventory.index')" :active="request()->routeIs('inventory')">
                         {{ __('Inventory') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('sales')" :active="request()->routeIs('sales')">
+                    <x-nav-link :href="route('sales.index')" :active="request()->routeIs('sales')">
                         {{ __('Sales') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('shopping')" :active="request()->routeIs('shopping')">
+                    <x-nav-link :href="route('shopping.index')" :active="request()->routeIs('shopping')">
                         {{ __('Shopping') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('reports')" :active="request()->routeIs('reports')">
-                        {{ __('Reports') }}
+                    <x-nav-link :href="route('reports.index')" :active="request()->routeIs('reports')">
+                        {{ __('reports') }}
                     </x-nav-link>
                 </div>
             </div>
