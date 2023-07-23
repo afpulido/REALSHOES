@@ -1,4 +1,4 @@
-use NewVersion;
+use realshoes;
 ### Tablas
 
     ### Tabla metodo_pago, almacena los diferentes metodos de pago aceptados por la organizacion.

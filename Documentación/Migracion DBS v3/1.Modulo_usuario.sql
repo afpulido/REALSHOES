@@ -48,19 +48,20 @@
     alter table persona add constraint fk_persona_tipo_doc foreign key(tipo_doc_id) references  tipo_doc(tipo_doc_id);
    
 ### Datos 
-    insert into rol (nombre, descripcion) values
-        ('Administrador_ARP','Administrador root con todos los privilegios.'),
-        ('Administrador_APM','Administrador privilegios medios.'),
-        ('Gerente','Usuario con vistas privilegiadas.'),
-        ('Operador','Empleado de Real Shoes.'),
-        ('Cliente','Cliente de Real Shoes');
+     insert into rol (nombre, descripcion, created_at,updated_at) values
+        ('Administrador_ARP','Administrador root con todos los privilegios.',NOW(),NOW()),
+        ('Administrador_APM','Administrador privilegios medios.',NOW(),NOW()),
+        ('Gerente','Usuario con vistas privilegiadas.',NOW(),NOW()),
+        ('Operador','Empleado de Real Shoes.',NOW(),NOW()),
+        ('Cliente','Cliente de Real Shoes',NOW(),NOW());
     
-    insert into tipo_doc (nombre, descripcion) values
-        ('Cédula Ciudadanía','Id Colombianos mayores de 18 años.'),
-        ('Tarjeta Identidad','Id Colombianos menores de 18 años.'),
-        ('Cédula Extranjería','Id expedida por Migración Colombia.'),
-        ('Permiso Especial Permanencia','Id para los nacionales Venezolanos.'),
-        ('Registro Civil','Doc detallado de hechos relativos al id.');
+    
+    insert into tipo_doc (nombre, descripcion, created_at,updated_at) values
+        ('Cédula Ciudadanía','Id Colombianos mayores de 18 años.',NOW(),NOW()),
+        ('Tarjeta Identidad','Id Colombianos menores de 18 años.',NOW(),NOW()),
+        ('Cédula Extranjería','Id expedida por Migración Colombia.',NOW(),NOW()),
+        ('Permiso Especial Permanencia','Id para los nacionales Venezolanos.',NOW(),NOW()),
+        ('Registro Civil','Doc detallado de hechos relativos al id.',NOW(),NOW());
 
     insert into persona(persona_id,nombre,apellidos,direccion,usuario,contraseña,telefono,email,tipo_doc_id,rol_id) values 
         (1022968811,'Omar Fernando','Bohorquez Preciado','Calle 5','ofbohorquez1','1234','749-47-38792','ofbohorquez1@misena.edu.co',1,1),

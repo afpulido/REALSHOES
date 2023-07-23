@@ -18,7 +18,27 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/store', function () {
+    return view('welcome');
+})->name('store');
+
+
 Route::get('/colecciones', function () {
+    return view('/shop/colecciones');
+})->name('colecciones');
+
+Route::get('/damas', function () {
+    return view('/shop/damas');
+})->name('damas');
+
+Route::get('/caballeros', function () {
+    return view('/shop/caballeros');
+})->name('caballeros');
+
+Route::get('/infantil', function () {
+    return view('/shop/infantil');
+})->name('infantil');
+/* Route::get('/colecciones', function () {
     return view('/shop/colecciones');
 })->name('gcolecciones');
 
@@ -33,7 +53,7 @@ Route::get('/caballeros', function () {
 Route::get('/infantil', function () {
     return view('/shop/infantil');
 })->name('ginfantil');
-
+ */
 
 /*
 *Ruta para acceder solo logueado a dashboard
@@ -61,24 +81,24 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/store', function () {
     return view('welcome');
-})->middleware(['auth', 'verified'])->name('store');
+})->name('store');
 
 
 Route::get('/colecciones', function () {
     return view('/shop/colecciones');
-})->middleware(['auth', 'verified'])->name('colecciones');
+})->name('colecciones');
 
 Route::get('/damas', function () {
     return view('/shop/damas');
-})->middleware(['auth', 'verified'])->name('damas');
+})->name('damas');
 
 Route::get('/caballeros', function () {
     return view('/shop/caballeros');
-})->middleware(['auth', 'verified'])->name('caballeros');
+})->name('caballeros');
 
 Route::get('/infantil', function () {
     return view('/shop/infantil');
-})->middleware(['auth', 'verified'])->name('infantil');
+})->name('infantil');
 
 
 
@@ -102,5 +122,8 @@ Route::get('/shopping', function () {
     return view('/dashboard/shopping');
 })->middleware(['auth', 'verified'])->name('shopping');
 
+Route::get('/reports', function () {
+    return view('/dashboard/reports');
+})->middleware(['auth', 'verified'])->name('reports');
 
 require __DIR__.'/auth.php';
