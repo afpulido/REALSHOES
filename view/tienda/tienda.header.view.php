@@ -10,6 +10,8 @@
 	<!-- End Preloader -->
 
 
+
+
 <!-- Header -->
 <header class="header shop">
 		<!-- Topbar -->
@@ -95,7 +97,7 @@
 								<div class="shopping-item">
 									<div class="dropdown-cart-header">
 										<span>2 Elementos</span>
-										<a href="#">Ver Carrito</a>
+										<a href="cart.php">Ver Carrito</a>
 									</div>
 									<ul class="shopping-list">
 										<li>
@@ -116,7 +118,7 @@
 											<span>Total</span>
 											<span class="total-amount">$134.000</span>
 										</div>
-										<a href="checkout.../../l" class="btn animate">Comprar</a>
+										<a href="checkout.php" class="btn animate">Comprar</a>
 									</div>
 								</div>
 								<!--/ End Shopping Item -->
@@ -135,10 +137,10 @@
 							<div class="all-category">
 								<h3 class="cat-heading"><i class="fa fa-bars" aria-hidden="true"></i>Productos</h3>
 								<ul class="main-category">
-									<li><a href="#">Colecciones</a></li>
-									<li class="main-mega"><a href="#">Damas</a></li>
-									<li><a href="#">Caballeros</a></li>
-									<li><a href="#">Infantil</a></li>
+									<li><a href="colecciones.view.php">Colecciones</a></li>
+									<li class="main-mega"><a href="damas.view.php">Damas</a></li>
+									<li><a href="caballeros.view.php">Caballeros</a></li>
+									<li><a href="infantil.view.php">Infantil</a></li>
 								</ul>
 							</div>
 						</div>
@@ -155,8 +157,8 @@
 													<li><a href="#">Compras<i class="ti-angle-down"></i><span class="new">Nuevo</span></a>
 														<ul class="dropdown">
 															<li><a href="shop-grid.php">Productos</a></li>
-															<li><a href="cart.../../l">Carrito de Compras</a></li>
-															<li><a href="checkout.../../l">Caja</a></li>
+															<li><a href="cart.php">Carrito de Compras</a></li>
+															<li><a href="checkout.php">Caja</a></li>
 														</ul>
 													</li>
 													<li><a href="#">Pages</a></li>									
@@ -180,3 +182,20 @@
 		<!--/ End Header Inner -->
 	</header>
 	<!--/ End Header -->
+
+	<!-- Breadcrumbs -->
+	<div class="breadcrumbs">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="bread-inner">
+						<ul class="bread-list">
+							<li>Inicio<i class="ti-arrow-right"></i></a></li>
+							<li> Productos</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End Breadcrumbs -->

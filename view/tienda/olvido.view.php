@@ -12,40 +12,34 @@
 						<div class="col-lg-3 col-12">
 							
 						</div>
-						<div class="col-lg-6 col-12">
+						<div class="col-lg-8 col-12">
 							<div class="form-main">
 								<div class="title">
-									<h1 style="color: orange;">Iniciar sesión</h1>
+									<h1 style="color: orange;">Olvido su contraseña</h1>
 									<br>
-									<h3>Digite sus credenciales</h3>
+									<h3>siga las instrucciones</h3>
 								</div>
 								<form class="form" method="post" action="">
 									<div class="row">
 										<div class="col-lg-8 col-12">
 											<div class="form-group">
-												<label>Correo<span>*</span></label>
+												<label>Por favor ingrese su correo.<span>*</span></label>
 												<input name="email" type="email" placeholder="Ingrese su Correo" required>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-lg-8 col-12">
-											<div class="form-group">
-												<label>Contraseña<span>*</span></label>
-												<input name="password" type="password" placeholder="Ingrese su contraseña" required>
 											</div>
 										</div>
 									</div>
 									<div class="row">
 										<div class="col-lg-5 col-12">
 											<div class="form-group">
-												<a href="olvido.view.php">¿Olvido su contraseña?</a>
+												<a href="registro.view.php">¿No esta registrado?</a>
+                                                <br>
+                                                <a href="login.view.php">Conoce su contraseña ¿Inicie sesión?</a>
 											</div>
 										</div>
 									
 										<div class="col-lg-1 col-12">
 											<div class="form-group button">
-												<button type="submit" class="btn ">Ingresar</button>
+												<button type="submit" class="btn ">Recuperar Contraseña</button>
 											</div>
 										</div>
 									</div>
@@ -66,4 +60,3 @@
 
 <?php include('tienda.footer.view.php');?>
 	
-

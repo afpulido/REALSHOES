@@ -3,22 +3,6 @@
 
 <?php include('tienda.header.view.php');?>
 
-<!-- Breadcrumbs -->
-	<div class="breadcrumbs">
-		<div class="container">
-			<div class="row">
-				<div class="col-12">
-					<div class="bread-inner">
-						<ul class="bread-list">
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- End Breadcrumbs -->
-
-
 	<!-- Start Contact -->
 	<section id="contact-us" class="contact-us section">
 		<div class="container">
@@ -43,12 +27,12 @@
                                         <li><a>Documentación, SQL, </a></li> 
                                         <p><strong>Instructor Gerardo Polania</strong></p>
                                         <br>
-                                        <li><a>Anteriores Instructores Técnico, Promover e Inglés.</a></li> 
+                                        <li><a>Anteriores Instructores Técnicos, Promover e Inglés.</a></li> 
                                         <p><strong>GRACIAS!</strong></p>
                                         <br>
                                         <li> <strong>Compañeros de ADSI 2395871, GRACIAS! por compartir</strong></li>
                                         <br>
-                                        <li><a href="https://electricidadelectronicaytelecomu.blogspot.com/" target="_blank">SENA - CEET</a></li> <p><strong>Servicio Nacional de Aprendizaje SENA <br>CENTRO DE ELECTRICIDAD, ELECTRÓNICA Y TELECOMUNICACIONERegional Distrito Capital</strong></p>
+                                        <li><a href="https://electricidadelectronicaytelecomu.blogspot.com/" target="_blank">SENA - CEET</a></li> <p><strong>Servicio Nacional de Aprendizaje SENA <br>Regional Distrito Capital <br>CENTRO DE ELECTRICIDAD, ELECTRÓNICA Y TELECOMUNICACIONES</strong></p>
                                     </ul>
                                 </div>
 							</div>
