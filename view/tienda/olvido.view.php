@@ -1,8 +1,8 @@
 
-<?php include('tienda.head.view.php'); ?>
+<?php include('../plantillas/tienda/tienda.head.view.php'); ?>
 
 
-<?php include('tienda.header.view.php');?>
+<?php include('../plantillas/tienda/tienda.header.view.php');?>
 
 <!-- Start login -->
 <section id="contact-us" class="contact-us section">
@@ -58,5 +58,5 @@
 
 
 
-<?php include('tienda.footer.view.php');?>
+<?php include('../plantillas/tienda/tienda.footer.view.php');?>
 	

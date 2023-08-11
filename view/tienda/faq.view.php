@@ -1,11 +1,11 @@
 
 	
-<?php include('tienda.head.view.php'); ?>
+<?php include('../plantillas/tienda/tienda.head.view.php'); ?>
 
 
-<?php include('tienda.header.view.php');?>
+<?php include('../plantillas/tienda/tienda.header.view.php');?>
 
-<!-- Start Contact -->
+	<!-- Start Contact -->
 	<section id="contact-us" class="contact-us section">
 		<div class="container">
 				<div class="contact-head">
@@ -26,7 +26,4 @@
 	</section>
 	<!--/ End Contact -->
 	
-
-	
-
-	<?php include('tienda.footer.view.php');?>
+	<?php include('../plantillas/tienda/tienda.footer.view.php');?>

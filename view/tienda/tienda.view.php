@@ -1,7 +1,4 @@
-<?php include('tienda.head.view.php'); ?>
 
-
-<?php include('tienda.header.view.php');?>
 
 	
 	<!-- Slider Area -->
@@ -1981,6 +1978,3 @@
             </div>
     </div>
     <!-- Modal end -->
-	
-	
-<?php include('tienda.footer.view.php');?>

@@ -1,8 +1,8 @@
 
-<?php include('tienda.head.view.php'); ?>
+<?php include('../plantillas/tienda/tienda.head.view.php'); ?>
 
 
-<?php include('tienda.header.view.php');?>
+<?php include('../plantillas/tienda/tienda.header.view.php');?>
 
 
   
@@ -98,4 +98,4 @@
 	</div> -->
 	<!--/ End Map Section -->
 
-	<?php include('tienda.footer.view.php');?>
+	<?php include('../plantillas/tienda/tienda.footer.view.php');?>
