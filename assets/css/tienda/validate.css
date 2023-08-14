@@ -1,0 +1,20 @@
+/* Campo sin diligencia error */
+.invalide{
+    border:solid 1px red;
+    box-shadow: 0 0 10px red;
+}
+/* Campo diligenciado ok */ 
+.valide{
+    border:solid 1px green;
+    box-shadow: 0 0 10px green;
+}
+/* color de mensaje de ver en formulario */
+.error{
+  color: red;
+  display: block; /* ver en mensaje abajo del formulario */
+}
+
+/* color de mensaje de ver en formulario */
+.noerror{
+    display: block; /* ver en mensaje abajo del formulario */
+  }
