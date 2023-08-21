@@ -17,7 +17,8 @@
 
         ### Tabla persona, almacena los datos de los usuarios.
             create table persona(
-            persona_id int primary key, 
+            persona_id int primary key auto_increment, 
+            cedula int,
             nombre varchar(45),
             apellido varchar(45),
             direccion varchar(45),
