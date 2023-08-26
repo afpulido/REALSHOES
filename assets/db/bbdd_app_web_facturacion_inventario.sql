@@ -62,6 +62,7 @@
         create table producto(
             producto_id int primary key auto_increment, 
             tipo varchar(45),
+            descripcion varchar(255),
             marca varchar(45) , 
             coleccion varchar(45),
             genero varchar(45),
@@ -89,8 +90,8 @@
         ### Datos inventario
             insert into inventario(bodega) values ('Restrepo');
         ### Datos producto
-            /* insert into producto(tipo,marca,coleccion,genero,talla,unidades,valor_compra,valor_venta,inventario_id) values
-            ('tipo_var','marca_var','coleccion_var','genero_var',talla_int,unidades_int,valor_compra_float,valor_venta_float,inventario_id_int);*/
+            /* insert into producto(tipo,descripcion,marca,coleccion,genero,talla,unidades,valor_compra,valor_venta,inventario_id) values
+            ('tipo_var','descripcion_var','marca_var','coleccion_var','genero_var',talla_int,unidades_int,valor_compra_float,valor_venta_float,inventario_id_int);*/
 ### Modulo Venta 
    
     ### Tablas
