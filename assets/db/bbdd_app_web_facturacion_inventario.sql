@@ -70,6 +70,7 @@
             unidades int unsigned,
             valor_compra float,
             valor_venta float,
+            ganancia int,
             imagen varchar(255),
             inventario_id int,
             fecha_creacion datetime default current_timestamp,
@@ -91,7 +92,8 @@
             insert into inventario(bodega) values ('Restrepo');
         ### Datos producto
             /* insert into producto(tipo,descripcion,marca,coleccion,genero,talla,unidades,valor_compra,valor_venta,inventario_id) values
-            ('tipo_var','descripcion_var','marca_var','coleccion_var','genero_var',talla_int,unidades_int,valor_compra_float,valor_venta_float,inventario_id_int);*/
+            ('tipo_var','descripcion_var','marca_var','coleccion_var','genero_var',talla_int,unidades_int,valor_compra_float,valor_venta_float,ganancia_int,
+            inventario_id_int);*/
 ### Modulo Venta 
    
     ### Tablas
