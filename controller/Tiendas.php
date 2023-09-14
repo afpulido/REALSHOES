@@ -1,17 +1,25 @@
-<?php
+<?php 
+    include_once ('Model/Producto.php');
+    include_once ('model/PersonaSeleccionaProducto.php');
+
     class Tiendas{
-        
-        /* public $pagina='';
-        public $usuario = 'Invitado';
-        public $title; */
-        
+        public $pagina;
+        public $usuario='Invitado';
+        public $title;
+        public $titulo;
         
         public function __construct(){}
 
         /* public function getTitle($pagina){
             $title='Realshoes | '.$pagina;
             
+        }
 
+        public function Title($titulo, $pagina ){
+            $title= $titulo.' | '.$pagina;
+            return $title;
+            return $pagina;
+        }
             (validar si usuario logueado o es visitante)
             
             if($_SESSION[]!=null){
@@ -26,48 +34,41 @@
         public function main(){
             $pagina= 'Tienda';
             $title='Realshoes | Tienda';
-            $usuario = 'Invitado';
-            /* $prueba=getTitle($pagina); */
+            $usuario = 'Pepito Perez';
+
+            $productos = new Producto;
+
+            if($caballeros = $productos->consultarTodosCaballero()>0){
+                $caballeros = $productos->consultarTodosCaballero();
+                /* print_r($caballeros); */
+            }
+            if($damas = $productos->consultarTodosDama()>0){
+                $damas = $productos->consultarTodosDama();
+            }    
+            if($infantil = $productos ->consultarTodosInfantil()>0){
+                $infantil = $productos ->consultarTodosInfantil();
+            }
+
+            $idpedido=1;
+            $nproductos = new PersonaSeleccionaProducto;
+            $nproductos= $nproductos->contarProductosPedido($idpedido);
 
             /* vista de header titulo */
-            require_once 'view/plantillas/tienda/tienda.head.view.php';
-            require_once 'view/plantillas/tienda/tienda.header.view.php';
+           require_once 'view/plantillas/tienda/tienda.head.view.php';
+           require_once 'view/plantillas/tienda/tienda.header.view.php';
 
             /* Acá va vista de Tienda */
             require_once 'view/tienda/tienda.view.php';
 
             require_once 'view/plantillas/tienda/tienda.footer.view.php';
-        }
+        }       
+        
 
         public function login(){
-            $pagina= 'Login';
-            $title='Realshoes | Login';
-            $usuario = 'Invitado';
-            /* $prueba=getTitle($pagina); */
-
-            /* vista de header titulo */
-            require_once 'view/plantillas/tienda/tienda.head.view.php';
-            require_once 'view/plantillas/tienda/tienda.header.view.php';
-
-            /* Acá va vista de Login */
-            require_once 'view/tienda/login.view.php';
-
-            require_once 'view/plantillas/tienda/tienda.footer.view.php';
+            header('Location: ?c=Login');
         }
         public function registrarse(){
-            $pagina= 'Registrarse';
-            $title='Realshoes | Registrarse';
-            $usuario = 'Invitado';
-            /* $prueba=getTitle($pagina); */
-
-            /* vista de header titulo */
-            require_once 'view/plantillas/tienda/tienda.head.view.php';
-            require_once 'view/plantillas/tienda/tienda.header.view.php';
-
-            /* Acá va vista de Registrarse */
-            require_once 'view/tienda/registrarse.view.php';
-
-            require_once 'view/plantillas/tienda/tienda.footer.view.php';
+            header('Location: ?c=Registrarse');
         }
 
         public function Olvido(){
@@ -81,7 +82,7 @@
             require_once 'view/plantillas/tienda/tienda.header.view.php';
 
             /* Acá va vista de Olvido Contraseña */
-            require_once 'view/tienda/olvido.view.php';
+            require_once 'view/tienda/contacto/olvido.view.php';
 
             require_once 'view/plantillas/tienda/tienda.footer.view.php';
         }
@@ -104,16 +105,17 @@
 
         /* cerrar sesion es una session destroy */
         public function cerrarSesion(){
+            header('Location: ?c=Logout');
             
             /* If you want to change the session id on each log in, 
             make sure to use session_regenerate_id(true) 
             during the log in process.  */
 
-            session_destroy();
+            /* session_destroy();
             session_regenerate_id(true);
 
             echo 'Has cerrado sesión Exitosamente <br>
-            Regresa pronto!';
+            Regresa pronto!'; */
             
            /*  echo "
                 Swal.fire({
@@ -144,7 +146,7 @@
             require_once 'view/plantillas/tienda/tienda.header.view.php';
 
             /* Acá va vista de login */
-            require_once 'view/tienda/colecciones.view.php';
+            require_once 'view/tienda/producto/colecciones.view.php';
 
             require_once 'view/plantillas/tienda/tienda.footer.view.php';
         }
@@ -160,7 +162,7 @@
             require_once 'view/plantillas/tienda/tienda.header.view.php';
 
             /* Acá va vista de Damas */
-            require_once 'view/tienda/damas.view.php';
+            require_once 'view/tienda/producto/damas.view.php';
 
             require_once 'view/plantillas/tienda/tienda.footer.view.php';
         }
@@ -176,7 +178,7 @@
             require_once 'view/plantillas/tienda/tienda.header.view.php';
 
             /* Acá va vista de Caballeros */
-            require_once 'view/tienda/caballeros.view.php';
+            require_once 'view/tienda/producto/caballeros.view.php';
 
             require_once 'view/plantillas/tienda/tienda.footer.view.php';
         }
@@ -192,7 +194,7 @@
             require_once 'view/plantillas/tienda/tienda.header.view.php';
 
             /* Acá va vista de Infantil */
-            require_once 'view/tienda/infantil.view.php';
+            require_once 'view/tienda/producto/infantil.view.php';
 
             require_once 'view/plantillas/tienda/tienda.footer.view.php';
         }
@@ -208,7 +210,7 @@
             require_once 'view/plantillas/tienda/tienda.header.view.php';
 
             /* Acá va vista de Quienes Somos */
-            require_once 'view/tienda/quienes.view.php';
+            require_once 'view/tienda/contacto/quienes.view.php';
 
             require_once 'view/plantillas/tienda/tienda.footer.view.php';
         }
@@ -224,7 +226,7 @@
             require_once 'view/plantillas/tienda/tienda.header.view.php';
 
             /* Acá va vista de Contactenos */
-            require_once 'view/tienda/contactenos.view.php';
+            require_once 'view/tienda/contacto/contactenos.view.php';
 
             require_once 'view/plantillas/tienda/tienda.footer.view.php';
         }
@@ -240,7 +242,7 @@
             require_once 'view/plantillas/tienda/tienda.header.view.php';
 
             /* Acá va vista de Productos */
-            require_once 'view/tienda/productos.view.php';
+            require_once 'view/tienda/contacto/productos.view.php';
 
             require_once 'view/plantillas/tienda/tienda.footer.view.php';
         }
@@ -256,25 +258,13 @@
             require_once 'view/plantillas/tienda/tienda.header.view.php';
 
             /* Acá va vista de Caja */
-            require_once 'view/tienda/caja.view.php';
+            require_once 'view/tienda/carrito/caja.view.php';
 
             require_once 'view/plantillas/tienda/tienda.footer.view.php';
         }
 
         public function carrito(){
-            $pagina= 'Carrito';
-            $title='Realshoes | Carrito';
-            $usuario = 'Invitado';
-            /* $prueba=getTitle($pagina); */
-
-            /* vista de header titulo */
-            require_once 'view/plantillas/tienda/tienda.head.view.php';
-            require_once 'view/plantillas/tienda/tienda.header.view.php';
-
-            /* Acá va vista de Carrito de compras */
-            require_once 'view/tienda/carrito.view.php';
-
-            require_once 'view/plantillas/tienda/tienda.footer.view.php';
+            header('Location:?c=Carritos');
         }
 
         public function creditos(){
@@ -288,7 +278,7 @@
             require_once 'view/plantillas/tienda/tienda.header.view.php';
 
             /* Acá va vista de Creditos */
-            require_once 'view/tienda/creditos.view.php';
+            require_once 'view/tienda/contacto/creditos.view.php';
 
             require_once 'view/plantillas/tienda/tienda.footer.view.php';
         }
@@ -304,7 +294,7 @@
             require_once 'view/plantillas/tienda/tienda.header.view.php';
 
             /* Acá va vista de FAQ */
-            require_once 'view/tienda/faq.view.php';
+            require_once 'view/tienda/contacto/faq.view.php';
 
             require_once 'view/plantillas/tienda/tienda.footer.view.php';
         }
@@ -320,7 +310,7 @@
             require_once 'view/plantillas/tienda/tienda.header.view.php';
 
             /* Acá va vista de Términos & Condiciones */
-            require_once 'view/tienda/terminos.view.php';
+            require_once 'view/tienda/contacto/terminos.view.php';
 
             require_once 'view/plantillas/tienda/tienda.footer.view.php';
         }
@@ -336,7 +326,7 @@
             require_once 'view/plantillas/tienda/tienda.header.view.php';
 
             /* Acá va vista de Ayuda */
-            require_once 'view/tienda/ayuda.view.php';
+            require_once 'view/tienda/contacto/ayuda.view.php';
 
             require_once 'view/plantillas/tienda/tienda.footer.view.php';
         }
